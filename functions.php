@@ -13,6 +13,8 @@ define( 'HELLO_ELEMENTOR_CHILD_VERSION', '2.0.0' );
 
 // Shared parts: design card + [sayban_finder] / [sayban_featured] shortcodes.
 require_once __DIR__ . '/inc/sayban-parts.php';
+// Blog helpers: read-time, excerpt, category chip, editorial post card.
+require_once __DIR__ . '/inc/sayban-blog-parts.php';
 
 /** True when the current page should load the Sayban home CSS (finder/featured). */
 function sayban_needs_home_css() {
@@ -60,6 +62,9 @@ add_filter( 'template_include', function ( $template ) {
 	if ( is_page( 'agent-login' ) && file_exists( $dir . '/page-agent-login.php' ) ) {
 		return $dir . '/page-agent-login.php';
 	}
+	if ( is_page( 'blog' ) && file_exists( $dir . '/page-blog.php' ) ) {
+		return $dir . '/page-blog.php';
+	}
 	return $template;
 }, 100 );
 
@@ -71,7 +76,8 @@ add_action( 'wp_enqueue_scripts', function () {
 	$is_listings = is_page( 'properties' );
 	$is_create   = is_page( array( 'create-property', 'create-property-page' ) ) || is_page( array( 'agent-registration', 'agent-login' ) );
 	$is_home     = sayban_needs_home_css();
-	if ( ! $is_single && ! $is_listings && ! $is_create && ! $is_home ) {
+	$is_blog     = is_page( 'blog' ) || is_singular( 'post' );
+	if ( ! $is_single && ! $is_listings && ! $is_create && ! $is_home && ! $is_blog ) {
 		return;
 	}
 
@@ -105,5 +111,8 @@ add_action( 'wp_enqueue_scripts', function () {
 	}
 	if ( $is_home ) {
 		$enqueue( 'sayban-home', 'sayban-home.css' );
+	}
+	if ( $is_blog ) {
+		$enqueue( 'sayban-blog', 'sayban-blog.css' );
 	}
 }, 30 );

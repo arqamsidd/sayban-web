@@ -221,7 +221,8 @@ function sayban_project_card_html( $pid ) {
 	$link  = get_permalink( $pid );
 	ob_start(); ?>
 	<article class="sbp-card">
-	  <a class="sbp-card-img" href="<?php echo esc_url( $link ); ?>" <?php if ( $img ) echo 'style="background-image:url(\'' . esc_url( $img ) . '\')"'; ?>>
+	  <a class="sbp-card-img<?php echo $img ? '' : ' sbp-card-img-empty'; ?>" href="<?php echo esc_url( $link ); ?>" <?php if ( $img ) echo 'style="background-image:url(\'' . esc_url( $img ) . '\')"'; ?>>
+		<?php if ( ! $img ) : ?><span class="sbp-card-mono" aria-hidden="true"><?php echo esc_html( strtoupper( mb_substr( get_the_title( $pid ), 0, 1 ) ) ); ?></span><?php endif; ?>
 		<?php if ( $status ) : ?><span class="sbp-card-status"><?php echo esc_html( $status ); ?></span><?php endif; ?>
 	  </a>
 	  <div class="sbp-card-body">

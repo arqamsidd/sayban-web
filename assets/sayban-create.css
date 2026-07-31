@@ -83,10 +83,10 @@
 .sb-wz-next{background:var(--gold) !important; color:#fff !important; border-color:var(--gold) !important;}
 .sb-wz-next:hover{background:var(--gold-deep) !important; border-color:var(--gold-deep) !important; color:#fff !important;}
 /* the real REM submit button (last step) → gold */
-.sb-form-card #form-submit{background:var(--gold) !important; color:#fff !important; border:1px solid var(--gold) !important;
+.sb-form-card #form-submit,.sb-form-card .signin-button{background:var(--gold) !important; color:#fff !important; border:1px solid var(--gold) !important;
   border-radius:9px !important; font-family:var(--sans); font-weight:800; font-size:15px; padding:14px 34px !important;
   min-height:52px; cursor:pointer; margin-top:20px;}
-.sb-form-card #form-submit:hover{background:var(--gold-deep) !important; border-color:var(--gold-deep) !important;}
+.sb-form-card #form-submit:hover,.sb-form-card .signin-button:hover{background:var(--gold-deep) !important; border-color:var(--gold-deep) !important; color:#fff !important;}
 
 /* tips rail */
 .sb-post-rail{display:grid; gap:14px; position:sticky; top:90px;}

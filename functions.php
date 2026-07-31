@@ -15,6 +15,8 @@ define( 'HELLO_ELEMENTOR_CHILD_VERSION', '2.0.0' );
 require_once __DIR__ . '/inc/sayban-parts.php';
 // Blog helpers: read-time, excerpt, category chip, editorial post card.
 require_once __DIR__ . '/inc/sayban-blog-parts.php';
+// Developer Projects: sayban_project CPT, meta, inquiry handler, [sayban_projects].
+require_once __DIR__ . '/inc/sayban-projects.php';
 
 /** True when the current page should load the Sayban home CSS (finder/featured). */
 function sayban_needs_home_css() {
@@ -81,7 +83,12 @@ add_action( 'wp_enqueue_scripts', function () {
 	$is_home     = sayban_needs_home_css();
 	$is_blog     = is_page( 'blog' ) || is_singular( 'post' );
 	$is_dash     = is_page( array( 'my-properties', 'edit-profile', 'edit-property' ) );
-	if ( ! $is_single && ! $is_listings && ! $is_create && ! $is_home && ! $is_blog && ! $is_dash ) {
+	$is_project  = is_singular( 'sayban_project' ) || is_post_type_archive( 'sayban_project' );
+	if ( ! $is_project && is_singular() ) {
+		$pp = get_post();
+		if ( $pp && has_shortcode( $pp->post_content, 'sayban_projects' ) ) { $is_project = true; }
+	}
+	if ( ! $is_single && ! $is_listings && ! $is_create && ! $is_home && ! $is_blog && ! $is_dash && ! $is_project ) {
 		return;
 	}
 
@@ -122,5 +129,8 @@ add_action( 'wp_enqueue_scripts', function () {
 	if ( $is_dash ) {
 		$enqueue( 'sayban-create', 'sayban-create.css' );   // profile/edit forms + wizard reuse this
 		$enqueue( 'sayban-dashboard', 'sayban-dashboard.css' );
+	}
+	if ( $is_project ) {
+		$enqueue( 'sayban-project', 'sayban-project.css' );
 	}
 }, 30 );

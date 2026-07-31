@@ -84,6 +84,7 @@ add_action( 'wp_enqueue_scripts', function () {
 	$is_blog     = is_page( 'blog' ) || is_singular( 'post' );
 	$is_dash     = is_page( array( 'my-properties', 'edit-profile', 'edit-property' ) );
 	$is_project  = is_singular( 'sayban_project' ) || is_post_type_archive( 'sayban_project' );
+	if ( ! $is_project && is_front_page() ) { $is_project = true; } // [sayban_projects] section on the homepage
 	if ( ! $is_project && is_singular() ) {
 		$pp = get_post();
 		if ( $pp && has_shortcode( $pp->post_content, 'sayban_projects' ) ) { $is_project = true; }

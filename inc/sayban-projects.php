@@ -174,21 +174,38 @@ add_action( 'admin_post_sayban_project_inquiry', 'sayban_project_inquiry_handler
 /* =========================================================================
    5. [sayban_projects] shortcode — card grid (for the homepage, later)
    ========================================================================= */
-function sayban_projects_shortcode( $atts ) {
-	$a = shortcode_atts( array( 'count' => 6 ), $atts, 'sayban_projects' );
+/**
+ * Projects in display order: active first, "Coming Soon" pushed to the end,
+ * then by menu_order (ASC) and date (DESC). Shared by the shortcode + archive.
+ */
+function sayban_sorted_projects( $limit = -1 ) {
 	$q = new WP_Query( array(
 		'post_type'      => 'sayban_project',
 		'post_status'    => 'publish',
-		'posts_per_page' => (int) $a['count'],
-		'orderby'        => 'menu_order date',
-		'order'          => 'ASC',
+		'posts_per_page' => -1,
+		'orderby'        => array( 'menu_order' => 'ASC', 'date' => 'DESC' ),
 		'no_found_rows'  => true,
 	) );
-	if ( ! $q->have_posts() ) { return ''; }
+	$posts = $q->posts;
+	wp_reset_postdata();
+	usort( $posts, function ( $a, $b ) {
+		$ca = stripos( (string) get_post_meta( $a->ID, 'sayban_status', true ), 'coming' ) !== false ? 1 : 0;
+		$cb = stripos( (string) get_post_meta( $b->ID, 'sayban_status', true ), 'coming' ) !== false ? 1 : 0;
+		if ( $ca !== $cb ) { return $ca - $cb; }                       // coming-soon last
+		if ( $a->menu_order !== $b->menu_order ) { return $a->menu_order - $b->menu_order; }
+		return strcmp( $b->post_date, $a->post_date );
+	} );
+	if ( $limit > 0 ) { $posts = array_slice( $posts, 0, $limit ); }
+	return $posts;
+}
+
+function sayban_projects_shortcode( $atts ) {
+	$a = shortcode_atts( array( 'count' => 6 ), $atts, 'sayban_projects' );
+	$posts = sayban_sorted_projects( (int) $a['count'] );
+	if ( ! $posts ) { return ''; }
 	ob_start();
 	echo '<div class="sbp-grid">';
-	while ( $q->have_posts() ) { $q->the_post(); echo sayban_project_card_html( get_the_ID() ); }
-	wp_reset_postdata();
+	foreach ( $posts as $p ) { echo sayban_project_card_html( $p->ID ); }
 	echo '</div>';
 	return ob_get_clean();
 }

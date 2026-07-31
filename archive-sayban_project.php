@@ -17,14 +17,11 @@ get_header();
   </header>
 
   <div class="sbp-arch-wrap">
-	<?php if ( have_posts() ) : ?>
+	<?php $projects = sayban_sorted_projects(); /* same order as the homepage: coming-soon last */ ?>
+	<?php if ( $projects ) : ?>
 	  <div class="sbp-grid">
-		<?php while ( have_posts() ) : the_post(); echo sayban_project_card_html( get_the_ID() ); endwhile; ?>
+		<?php foreach ( $projects as $p ) { echo sayban_project_card_html( $p->ID ); } ?>
 	  </div>
-	  <?php
-	  $pg = paginate_links( array( 'prev_text' => '&larr; Prev', 'next_text' => 'Next &rarr;', 'type' => 'list' ) );
-	  if ( $pg ) { echo '<div class="sbp-arch-pager">' . $pg . '</div>'; }
-	  ?>
 	<?php else : ?>
 	  <p class="sbp-arch-empty">No projects published yet — check back soon.</p>
 	<?php endif; ?>

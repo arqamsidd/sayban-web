@@ -18,7 +18,7 @@ get_header();
 	</nav>
 
 	<div class="sb-map-strip">
-	  <span class="sb-map-strip-txt">◈&nbsp;&nbsp;Browse verified listings — owners, agents &amp; Sayban Builders' own projects.</span>
+	  <span class="sb-map-strip-txt">◈&nbsp;&nbsp;Browse verified listings — owners, agents &amp; Sayban Builders' own projects. · auto-deploy test ✓</span>
 	</div>
 
 	<div class="sb-listings">

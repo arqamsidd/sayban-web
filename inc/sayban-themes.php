@@ -201,6 +201,21 @@ function sayban_colors_render_admin_page() {
 		.sayban-colors-admin .sb-theme-desc{color:#646970;font-size:12.5px}
 		.sayban-colors-admin .sb-theme-check{margin-left:auto;color:#B08C46;opacity:0;font-size:22px;width:22px;height:22px}
 		.sayban-colors-admin .sb-theme-card.is-active .sb-theme-check{opacity:1}
+		/* live selection (before save) via :has for browsers that support it */
+		.sayban-colors-admin .sb-theme-card:has(input:checked){border-color:#B08C46;box-shadow:0 0 0 1px #B08C46}
+		.sayban-colors-admin .sb-theme-card:has(input:checked) .sb-theme-check{opacity:1}
 	</style>
+	<script>
+	(function(){
+		var cards = document.querySelectorAll('.sayban-colors-admin .sb-theme-card');
+		document.querySelectorAll('.sayban-colors-admin input[name="sayban_active_theme"]').forEach(function(radio){
+			radio.addEventListener('change', function(){
+				cards.forEach(function(c){ c.classList.remove('is-active'); });
+				var card = radio.closest('.sb-theme-card');
+				if (card) { card.classList.add('is-active'); }
+			});
+		});
+	})();
+	</script>
 	<?php
 }

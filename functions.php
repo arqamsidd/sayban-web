@@ -84,10 +84,16 @@ add_action( 'wp_enqueue_scripts', function () {
 	$is_blog     = is_page( 'blog' ) || is_singular( 'post' );
 	$is_dash     = is_page( array( 'my-properties', 'edit-profile', 'edit-property' ) );
 	$is_project  = is_singular( 'sayban_project' ) || is_post_type_archive( 'sayban_project' );
-	if ( ! $is_project && is_front_page() ) { $is_project = true; } // [sayban_projects] section on the homepage
 	if ( ! $is_project && is_singular() ) {
+		// Any page/post whose content OR Elementor data holds [sayban_projects] (home, company, …).
 		$pp = get_post();
-		if ( $pp && has_shortcode( $pp->post_content, 'sayban_projects' ) ) { $is_project = true; }
+		if ( $pp ) {
+			$eld = get_post_meta( $pp->ID, '_elementor_data', true );
+			if ( has_shortcode( $pp->post_content, 'sayban_projects' )
+				|| ( is_string( $eld ) && strpos( $eld, '[sayban_projects' ) !== false ) ) {
+				$is_project = true;
+			}
+		}
 	}
 	if ( ! $is_single && ! $is_listings && ! $is_create && ! $is_home && ! $is_blog && ! $is_dash && ! $is_project ) {
 		return;

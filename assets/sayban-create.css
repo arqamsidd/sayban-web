@@ -85,11 +85,11 @@
 .sb-wz-back:hover{border-color:var(--gold); color:var(--gold-deep) !important;}
 .sb-wz-next{background:var(--gold) !important; color:#fff !important; border-color:var(--gold) !important;}
 .sb-wz-next:hover{background:var(--gold-deep) !important; border-color:var(--gold-deep) !important; color:#fff !important;}
-/* the real REM submit button (last step) → gold */
-.sb-form-card #form-submit,.sb-form-card .signin-button{background:var(--gold) !important; color:#fff !important; border:1px solid var(--gold) !important;
+/* the real REM submit button (create / register / login) → gold */
+.sb-form-card #form-submit,.sb-form-card .signin-button,.sb-form-card .button-form{background:var(--gold) !important; color:#fff !important; border:1px solid var(--gold) !important;
   border-radius:9px !important; font-family:var(--sans); font-weight:800; font-size:15px; padding:14px 34px !important;
   min-height:52px; cursor:pointer; margin-top:20px;}
-.sb-form-card #form-submit:hover,.sb-form-card .signin-button:hover{background:var(--gold-deep) !important; border-color:var(--gold-deep) !important; color:#fff !important;}
+.sb-form-card #form-submit:hover,.sb-form-card .signin-button:hover,.sb-form-card .button-form:hover{background:var(--gold-deep) !important; border-color:var(--gold-deep) !important; color:#fff !important;}
 
 /* tips rail */
 .sb-post-rail{display:grid; gap:14px; position:sticky; top:90px;}
@@ -99,8 +99,11 @@
 .sb-next-card{background:#fff; border:1px solid var(--line); border-radius:12px; padding:20px; font-size:13.5px; color:var(--ink2);}
 .sb-next-card b{color:var(--ink); display:block; margin-bottom:6px;}
 
-/* logged-out login form */
+/* logged-out login form + dedicated login page */
 .sb-post-grid-login .sb-form-card{padding:34px;}
+.sb-login-card{max-width:460px; margin:0 auto;}
+.sb-login-alt{margin-top:20px; padding-top:18px; border-top:1px solid var(--line); text-align:center; font-size:14px; color:var(--ink2);}
+.sb-login-alt a{color:var(--gold-deep); font-weight:700;}
 .sb-post-page .rem-login-heading,.sb-post-page .agent-login h3{font-family:var(--serif); font-weight:400; color:var(--ink);}
 
 /* responsive */

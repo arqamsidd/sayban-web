@@ -57,6 +57,9 @@ add_filter( 'template_include', function ( $template ) {
 	if ( is_page( 'agent-registration' ) && file_exists( $dir . '/page-agent-registration.php' ) ) {
 		return $dir . '/page-agent-registration.php';
 	}
+	if ( is_page( 'agent-login' ) && file_exists( $dir . '/page-agent-login.php' ) ) {
+		return $dir . '/page-agent-login.php';
+	}
 	return $template;
 }, 100 );
 
@@ -66,7 +69,7 @@ add_filter( 'template_include', function ( $template ) {
 add_action( 'wp_enqueue_scripts', function () {
 	$is_single   = is_singular( 'rem_property' );
 	$is_listings = is_page( 'properties' );
-	$is_create   = is_page( array( 'create-property', 'create-property-page' ) ) || is_page( 'agent-registration' );
+	$is_create   = is_page( array( 'create-property', 'create-property-page' ) ) || is_page( array( 'agent-registration', 'agent-login' ) );
 	$is_home     = sayban_needs_home_css();
 	if ( ! $is_single && ! $is_listings && ! $is_create && ! $is_home ) {
 		return;

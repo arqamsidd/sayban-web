@@ -156,7 +156,8 @@ function sayban_project_inquiry_handler() {
 		wp_safe_redirect( add_query_arg( 'inq', 'error', $ref ) ); exit;
 	}
 	$project = $pid ? get_the_title( $pid ) : 'Project';
-	$to      = get_option( 'admin_email' );
+	// Inquiries go to the sales inbox; editable via option `sayban_inquiry_email`.
+	$to      = get_option( 'sayban_inquiry_email', 'digital@dragster.se' );
 	$to      = apply_filters( 'sayban_project_inquiry_to', $to, $pid );
 	$subject = 'New project inquiry — ' . $project;
 	$body    = "New inquiry for: {$project}\n\n"

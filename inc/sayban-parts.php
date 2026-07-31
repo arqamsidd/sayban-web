@@ -225,7 +225,8 @@ function sayban_cities_shortcode( $atts ) {
 		$n   = isset( $counts[ $slug ] ) ? $counts[ $slug ] : 0;
 		$sub = $n > 0 ? ( number_format_i18n( $n ) . ' listing' . ( $n === 1 ? '' : 's' ) ) : 'Browse listings';
 		$url = add_query_arg( 'city', $slug, $listings );
-		echo '<a class="sb-city" href="' . esc_url( $url ) . '"' . ( $img ? ' style="background-image:url(\'' . esc_url( $img ) . '\')"' : '' ) . '>'
+		echo '<a class="sb-city" href="' . esc_url( $url ) . '">'
+			. ( $img ? '<img class="sb-city-img" src="' . esc_url( $img ) . '" alt="' . esc_attr( $name ) . '" loading="lazy" decoding="async">' : '' )
 			. '<span class="sb-city-grad" aria-hidden="true"></span>'
 			. '<span class="sb-city-meta"><b>' . esc_html( $name ) . '</b><span>' . esc_html( $sub ) . '</span></span>'
 			. '</a>';

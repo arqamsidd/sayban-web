@@ -1,0 +1,142 @@
+/* ============================================================================
+   Sayban.pk — member Dashboard shell (scoped to .sb-dash)
+   Sidebar + main. Reskins REM's [rem_my_properties] table; the profile / edit
+   forms reuse sayban-create.css (.sb-post-page .sb-form-card).
+   ========================================================================== */
+.sb-dash{
+  --ink:#2A2925; --ink2:#57544C; --ink3:#8B8578;
+  --gold:#B08C46; --gold-deep:#8E6E2F; --gold-soft:#F3EAD7;
+  --teal:#0E6E5E; --teal-deep:#0A5547; --teal-soft:#E2EFEA;
+  --bg:#FAF8F3; --surface:#FFFFFF; --line:#E8E2D4; --line2:#D9D2C0; --brick:#A8442E; --brick-soft:#F5E4DF;
+  --serif:'Marcellus', Georgia, serif; --sans:'Manrope','Segoe UI',system-ui,sans-serif;
+  background:var(--bg); font-family:var(--sans); color:var(--ink); line-height:1.55;
+}
+.sb-dash *{box-sizing:border-box;}
+.sb-dash a{text-decoration:none; color:inherit;}
+.sb-dash-wrap{max-width:1320px; margin:0 auto; padding:34px 40px 72px;}
+.sb-dash-grid{display:grid; grid-template-columns:258px minmax(0,1fr); gap:28px; align-items:start;}
+
+/* buttons */
+.sb-dash .sb-btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:var(--sans);
+  font-weight:700; font-size:14px; padding:11px 20px; border-radius:8px; border:1px solid transparent; cursor:pointer; line-height:1;
+  transition:background-color .15s,border-color .15s,color .15s;}
+.sb-dash .sb-btn-gold{background:var(--gold) !important; color:#fff !important; border-color:var(--gold);}
+.sb-dash .sb-btn-gold:hover{background:var(--gold-deep) !important; border-color:var(--gold-deep); color:#fff !important;}
+
+/* ================= SIDEBAR ================= */
+.sb-dash-side{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:8px;
+  box-shadow:0 2px 10px rgba(31,28,20,.05); position:sticky; top:90px;}
+.sb-dash-user{display:flex; align-items:center; gap:12px; padding:16px 14px 18px; border-bottom:1px solid var(--line); margin-bottom:8px;}
+.sb-dash-avatar{width:46px; height:46px; border-radius:50%; flex:none; display:grid; place-items:center;
+  font-family:var(--serif); font-size:20px; color:#fff; background:linear-gradient(135deg,var(--gold) 0%,var(--gold-deep) 100%);}
+.sb-dash-user-meta{min-width:0;}
+.sb-dash-user-meta b{display:block; font-size:14.5px; color:var(--ink); font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.sb-dash-user-meta span{font-size:12px; color:var(--ink3);}
+.sb-dash-menu{display:flex; flex-direction:column; gap:2px; padding:4px;}
+.sb-dash-menu a{display:flex; align-items:center; gap:11px; padding:11px 14px; border-radius:9px; font-size:14px; font-weight:600;
+  color:var(--ink2); transition:background-color .15s,color .15s;}
+.sb-dash-menu a:hover{background:#FCFAF5; color:var(--ink);}
+.sb-dash-menu a.on{background:var(--gold-soft); color:var(--gold-deep); font-weight:800;}
+.sb-dash-ico{width:18px; text-align:center; font-size:14px; opacity:.9;}
+.sb-dash-menu a.on .sb-dash-ico{color:var(--gold-deep);}
+.sb-dash-logout{color:var(--brick) !important; margin-top:6px; border-top:1px solid var(--line); border-radius:0 0 9px 9px;}
+.sb-dash-logout:hover{background:var(--brick-soft) !important;}
+
+/* ================= MAIN ================= */
+.sb-dash-main{min-width:0;}
+.sb-dash-bar{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:16px;}
+.sb-dash-h1{font-family:var(--serif); font-size:27px; font-weight:400; color:var(--ink); margin:0; line-height:1.2;}
+.sb-dash-h1-sub{font-family:var(--sans); font-size:15px; font-weight:600; color:var(--ink3);}
+.sb-dash-lead{color:var(--ink2); font-size:14.5px; margin:0 0 20px; max-width:70ch;}
+.sb-dash-crumb{margin-bottom:12px;}
+.sb-dash-crumb a{font-size:13.5px; font-weight:700; color:var(--gold-deep);}
+.sb-dash-crumb a:hover{color:var(--ink);}
+
+/* stat tiles */
+.sb-dash-tiles{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:26px;}
+.sb-tile{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px 20px;
+  box-shadow:0 2px 10px rgba(31,28,20,.04);}
+.sb-tile b{display:block; font-size:30px; font-weight:800; line-height:1; color:var(--ink); font-family:var(--sans);}
+.sb-tile span{display:block; margin-top:7px; font-size:12.5px; font-weight:600; color:var(--ink3); letter-spacing:.02em;}
+.sb-tile-gold{color:var(--gold-deep) !important;}
+.sb-tile-teal{color:var(--teal) !important;}
+
+/* ================= REM my_properties table reskin ================= */
+.sb-dash-tablecard{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:8px 4px;
+  box-shadow:0 2px 12px rgba(31,28,20,.05); overflow:hidden;}
+.sb-dash-tablecard .ich-settings-main-wrap{max-width:none !important; margin:0 !important;}
+/* top filter/search toolbar */
+.sb-dash-tablecard > .row:first-child{padding:12px 16px 4px; margin:0;}
+.sb-dash-tablecard select,.sb-dash-tablecard input[type="text"],.sb-dash-tablecard input[type="search"]{
+  min-height:40px; border:1px solid var(--line2) !important; border-radius:8px !important; background:#fff !important;
+  padding:8px 12px; font-family:var(--sans); font-size:13.5px; color:var(--ink); box-shadow:none !important; width:100%;}
+.sb-dash-tablecard select:focus,.sb-dash-tablecard input:focus{border-color:var(--gold) !important; outline:none;
+  box-shadow:0 0 0 3px rgba(176,140,70,.15) !important;}
+
+.sb-dash-tablecard .table-responsive{border:none !important; margin:0;}
+.sb-dash-tablecard table{width:100%; border-collapse:collapse; margin:0; background:transparent;}
+.sb-dash-tablecard thead th{background:transparent; border:none !important; border-bottom:1px solid var(--line) !important;
+  padding:12px 14px !important; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--ink3); text-align:left;}
+.sb-dash-tablecard tbody td{border:none !important; border-bottom:1px solid var(--line) !important; padding:14px !important;
+  vertical-align:middle; font-size:13.5px; color:var(--ink2); background:transparent !important;}
+.sb-dash-tablecard tbody tr:last-child td{border-bottom:none !important;}
+.sb-dash-tablecard tbody tr:hover td{background:#FCFAF5 !important;}
+.sb-dash-tablecard .img-wrap{width:66px;}
+.sb-dash-tablecard .img-wrap img,.sb-dash-tablecard td img.rem-f-image{width:60px !important; height:60px !important;
+  object-fit:cover; border-radius:9px; border:1px solid var(--line); display:block;}
+.sb-dash-tablecard a.property-title{font-family:var(--serif); font-size:15px; color:var(--ink) !important; font-weight:400;}
+.sb-dash-tablecard a.property-title:hover{color:var(--gold-deep) !important;}
+
+/* status pills (REM .label-*) */
+.sb-dash-tablecard .label.property-status,.sb-dash-tablecard .property-status{display:inline-block; padding:5px 12px; border-radius:999px;
+  font-size:10.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:var(--ink2); background:var(--line);}
+.sb-dash-tablecard .label-success{background:var(--teal-soft) !important; color:var(--teal-deep) !important;}
+.sb-dash-tablecard .label-warning{background:var(--gold-soft) !important; color:var(--gold-deep) !important;}
+.sb-dash-tablecard .label-danger{background:var(--brick-soft) !important; color:var(--brick) !important;}
+.sb-dash-tablecard .label-default,.sb-dash-tablecard .label-info{background:var(--line) !important; color:var(--ink2) !important;}
+
+/* action buttons (Edit / Delete) → clean design links */
+.sb-dash-tablecard td .btn{display:inline-flex; align-items:center; gap:6px; padding:8px 14px !important; border-radius:8px !important;
+  font-family:var(--sans) !important; font-size:12.5px !important; font-weight:700 !important; line-height:1 !important;
+  border:1px solid var(--line2) !important; background:#fff !important; color:var(--ink2) !important; margin:2px 4px 2px 0 !important; box-shadow:none !important;}
+.sb-dash-tablecard td .btn-info{border-color:var(--teal) !important; color:var(--teal-deep) !important;}
+.sb-dash-tablecard td .btn-info:hover{background:var(--teal) !important; color:#fff !important;}
+.sb-dash-tablecard td .btn-danger,.sb-dash-tablecard td .delete-property{border-color:var(--line2) !important; color:var(--brick) !important;}
+.sb-dash-tablecard td .btn-danger:hover,.sb-dash-tablecard td .delete-property:hover{background:var(--brick) !important; color:#fff !important; border-color:var(--brick) !important;}
+
+/* pagination */
+.sb-dash-tablecard .rem-pagination-wrap{padding:16px; text-align:center;}
+.sb-dash-tablecard .rem-pagination-wrap a,.sb-dash-tablecard .rem-pagination-wrap span{display:inline-flex; align-items:center; justify-content:center;
+  min-width:38px; height:38px; padding:0 12px; border-radius:8px; border:1px solid var(--line2); margin:0 3px; font-weight:700; font-size:13.5px; color:var(--ink2);}
+.sb-dash-tablecard .rem-pagination-wrap .current,.sb-dash-tablecard .rem-pagination-wrap a:hover{background:var(--ink); border-color:var(--ink); color:#fff;}
+
+.sb-dash-tablecard .rem-no-property,.sb-dash-tablecard .no-property{padding:40px 20px; text-align:center; color:var(--ink2);}
+
+/* ================= profile / edit form host ================= */
+.sb-dash-formhost{background:transparent;}
+.sb-dash-formhost .sb-form-card{box-shadow:0 2px 12px rgba(31,28,20,.05);}
+/* profile fields are <li> inside ul.profile — lay them out cleanly */
+.sb-dash-formhost ul.profile{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:16px 20px;}
+.sb-dash-formhost ul.profile li{margin:0; padding:0; list-style:none;}
+.sb-dash-formhost ul.profile li.rem-textarea-wrap,.sb-dash-formhost ul.profile li.full-width{grid-column:1/3;}
+.sb-dash-formhost .section-title{grid-column:1/3;}
+
+/* ================= responsive ================= */
+@media (max-width:991px){
+  .sb-dash-wrap{padding:24px 20px 56px;}
+  .sb-dash-grid{grid-template-columns:1fr;}
+  .sb-dash-side{position:static;}
+  .sb-dash-menu{flex-direction:row; flex-wrap:wrap;}
+  .sb-dash-menu a{flex:1 1 auto;}
+  .sb-dash-logout{border-top:none;}
+  .sb-dash-tiles{grid-template-columns:repeat(2,1fr);}
+  .sb-dash-formhost ul.profile{grid-template-columns:1fr;}
+  .sb-dash-formhost ul.profile li.rem-textarea-wrap,.sb-dash-formhost ul.profile li.full-width,.sb-dash-formhost .section-title{grid-column:1;}
+}
+@media (max-width:560px){
+  .sb-dash-tiles{grid-template-columns:1fr 1fr; gap:12px;}
+  .sb-tile b{font-size:25px;}
+  .sb-dash-tablecard thead th:nth-child(3),.sb-dash-tablecard tbody td:nth-child(3),
+  .sb-dash-tablecard thead th:nth-child(4),.sb-dash-tablecard tbody td:nth-child(4),
+  .sb-dash-tablecard thead th:nth-child(5),.sb-dash-tablecard tbody td:nth-child(5){display:none;}
+}

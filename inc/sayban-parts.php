@@ -47,6 +47,8 @@ function sayban_page_url( $key ) {
 		case 'register':  $id = $find( '[rem_register_agent' ); break;
 		case 'create':    $id = $find( '[rem_create_property' ); break;
 		case 'dashboard': $id = $find( '[rem_my_properties' ); break;
+		case 'profile':   $id = $find( '[rem_agent_edit' ); break;   // edit-profile page
+		case 'editprop':  $id = $find( '[rem_edit_property' ); break; // edit-property page
 		case 'listings':  $id = $find( array( '[rem_list_properties', 'top_bar' ) ); break; // our /properties/ page (id 604)
 	}
 	$url = $id ? get_permalink( $id ) : home_url( '/' );

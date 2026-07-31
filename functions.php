@@ -65,6 +65,9 @@ add_filter( 'template_include', function ( $template ) {
 	if ( is_page( 'blog' ) && file_exists( $dir . '/page-blog.php' ) ) {
 		return $dir . '/page-blog.php';
 	}
+	if ( is_page( array( 'my-properties', 'edit-profile', 'edit-property' ) ) && file_exists( $dir . '/page-dashboard.php' ) ) {
+		return $dir . '/page-dashboard.php';
+	}
 	return $template;
 }, 100 );
 
@@ -77,7 +80,8 @@ add_action( 'wp_enqueue_scripts', function () {
 	$is_create   = is_page( array( 'create-property', 'create-property-page' ) ) || is_page( array( 'agent-registration', 'agent-login' ) );
 	$is_home     = sayban_needs_home_css();
 	$is_blog     = is_page( 'blog' ) || is_singular( 'post' );
-	if ( ! $is_single && ! $is_listings && ! $is_create && ! $is_home && ! $is_blog ) {
+	$is_dash     = is_page( array( 'my-properties', 'edit-profile', 'edit-property' ) );
+	if ( ! $is_single && ! $is_listings && ! $is_create && ! $is_home && ! $is_blog && ! $is_dash ) {
 		return;
 	}
 
@@ -114,5 +118,9 @@ add_action( 'wp_enqueue_scripts', function () {
 	}
 	if ( $is_blog ) {
 		$enqueue( 'sayban-blog', 'sayban-blog.css' );
+	}
+	if ( $is_dash ) {
+		$enqueue( 'sayban-create', 'sayban-create.css' );   // profile/edit forms + wizard reuse this
+		$enqueue( 'sayban-dashboard', 'sayban-dashboard.css' );
 	}
 }, 30 );

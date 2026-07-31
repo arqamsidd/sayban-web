@@ -104,6 +104,8 @@
 .sb-login-card{max-width:460px; margin:0 auto;}
 .sb-login-alt{margin-top:20px; padding-top:18px; border-top:1px solid var(--line); text-align:center; font-size:14px; color:var(--ink2);}
 .sb-login-alt a{color:var(--gold-deep); font-weight:700;}
+/* login links (e.g. "Lost your password?") → gold, not default blue */
+.sb-post-grid-login .sb-form-card a{color:var(--gold-deep) !important;}
 .sb-post-page .rem-login-heading,.sb-post-page .agent-login h3{font-family:var(--serif); font-weight:400; color:var(--ink);}
 
 /* responsive */

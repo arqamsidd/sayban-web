@@ -109,10 +109,12 @@ a.sb-chip:hover{background:var(--teal); color:#fff;}
 
 /* ============================ CLOSING CTA ============================== */
 .sb-blog-cta{background:var(--ink); margin-top:56px; color:#fff;}
-.sb-blog-cta-inner{max-width:1200px; margin:0 auto; padding:60px 40px 64px; text-align:center;}
-.sb-blog-cta .sb-kicker{margin-bottom:14px;}
-.sb-blog-cta-title{font-family:var(--serif); font-size:38px; line-height:1.12; margin-bottom:12px;}
-.sb-blog-cta-sub{color:rgba(255,255,255,.72); font-size:16px; max-width:52ch; margin:0 auto 26px;}
+/* flex-centered column so alignment doesn't depend on margins the h2/p reset strips */
+.sb-blog-cta-inner{max-width:760px; margin:0 auto; padding:76px 40px 80px; text-align:center;
+  display:flex; flex-direction:column; align-items:center;}
+.sb-blog-cta .sb-kicker{margin:0 0 18px;}
+.sb-blog-cta .sb-blog-cta-title{font-family:var(--serif); font-size:38px; line-height:1.14; margin:0 0 16px;}
+.sb-blog-cta .sb-blog-cta-sub{color:rgba(255,255,255,.72); font-size:16px; line-height:1.65; max-width:46ch; margin:0 0 32px;}
 .sb-blog-cta-btns{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
 
 /* ================================================================= */

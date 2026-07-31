@@ -85,7 +85,7 @@ function sayban_finder_shortcode( $atts ) {
 	  <div class="sf-tabs" role="tablist">
 		<button type="button" class="sf-tab on" data-purpose="buy">Buy</button>
 		<button type="button" class="sf-tab" data-purpose="rent">Rent</button>
-		<button type="button" class="sf-tab" data-type="Plot / Land">Plots</button>
+		<button type="button" class="sf-tab" data-purpose="plot">Plots</button>
 		<button type="button" class="sf-tab" data-purpose="">Requirements</button>
 	  </div>
 	  <form class="sf-form" method="get" action="<?php echo esc_url( $target ); ?>">

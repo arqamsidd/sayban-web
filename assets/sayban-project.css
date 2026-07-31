@@ -170,7 +170,9 @@
 .sbp-tag{display:inline-block; align-self:flex-start; font-size:10.5px; font-weight:800; letter-spacing:.1em; text-transform:uppercase;
   color:var(--gold-lite); border:1px solid var(--gold); border-radius:999px; padding:4px 12px; margin-bottom:14px;}
 .sbp-card-title{font-family:var(--serif); font-size:23px; line-height:1.15; color:#fff; margin-bottom:8px;}
-.sbp-card-title a:hover{color:var(--gold-lite);}
+/* !important so Elementor's global link colour doesn't bleed into the card title on the homepage */
+.sbp-card-title a{color:inherit !important; text-decoration:none;}
+.sbp-card-title a:hover{color:var(--gold-lite) !important;}
 .sbp-card-loc{font-size:14px; color:rgba(255,255,255,.62); margin-bottom:14px;}
 .sbp-card-price{margin:2px 0 18px; padding-top:14px; border-top:1px solid var(--darkline);}
 .sbp-card-price span{display:block; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:3px;}

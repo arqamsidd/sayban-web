@@ -192,3 +192,45 @@ function sayban_featured_shortcode( $atts ) {
 	return ob_get_clean();
 }
 add_shortcode( 'sayban_featured', 'sayban_featured_shortcode' );
+
+/* =========================================================================
+   [sayban_cities]  — "Browse by City" cards (image + bottom gradient + count)
+   Images come from the option `sayban_city_images` (slug => URL).
+   ========================================================================= */
+function sayban_cities_shortcode( $atts ) {
+	$imgs   = get_option( 'sayban_city_images', array() );
+	$cities = array(
+		'karachi'    => 'Karachi',
+		'lahore'     => 'Lahore',
+		'islamabad'  => 'Islamabad',
+		'rawalpindi' => 'Rawalpindi',
+		'faisalabad' => 'Faisalabad',
+	);
+	/* real published listing counts per city (case-insensitive) */
+	global $wpdb;
+	$rows = $wpdb->get_results(
+		"SELECT LOWER(pm.meta_value) city, COUNT(*) c
+		 FROM {$wpdb->postmeta} pm JOIN {$wpdb->posts} p ON p.ID = pm.post_id
+		 WHERE pm.meta_key = 'rem_property_city' AND p.post_type = 'rem_property' AND p.post_status = 'publish'
+		 GROUP BY LOWER(pm.meta_value)", ARRAY_A
+	);
+	$counts = array();
+	foreach ( (array) $rows as $r ) { $counts[ $r['city'] ] = (int) $r['c']; }
+
+	$listings = sayban_page_url( 'listings' );
+	ob_start();
+	echo '<div class="sb-cities">';
+	foreach ( $cities as $slug => $name ) {
+		$img = isset( $imgs[ $slug ] ) ? $imgs[ $slug ] : '';
+		$n   = isset( $counts[ $slug ] ) ? $counts[ $slug ] : 0;
+		$sub = $n > 0 ? ( number_format_i18n( $n ) . ' listing' . ( $n === 1 ? '' : 's' ) ) : 'Browse listings';
+		$url = add_query_arg( 'city', $slug, $listings );
+		echo '<a class="sb-city" href="' . esc_url( $url ) . '"' . ( $img ? ' style="background-image:url(\'' . esc_url( $img ) . '\')"' : '' ) . '>'
+			. '<span class="sb-city-grad" aria-hidden="true"></span>'
+			. '<span class="sb-city-meta"><b>' . esc_html( $name ) . '</b><span>' . esc_html( $sub ) . '</span></span>'
+			. '</a>';
+	}
+	echo '</div>';
+	return ob_get_clean();
+}
+add_shortcode( 'sayban_cities', 'sayban_cities_shortcode' );

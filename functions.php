@@ -17,6 +17,8 @@ require_once __DIR__ . '/inc/sayban-parts.php';
 require_once __DIR__ . '/inc/sayban-blog-parts.php';
 // Developer Projects: sayban_project CPT, meta, inquiry handler, [sayban_projects].
 require_once __DIR__ . '/inc/sayban-projects.php';
+// Color theme switcher: wp-admin "Sayban Colors" page + active-theme helpers.
+require_once __DIR__ . '/inc/sayban-themes.php';
 
 /** True when the current page should load the Sayban home CSS (finder/featured). */
 function sayban_needs_home_css() {
@@ -60,8 +62,13 @@ function sayban_enqueue_color_system() {
 	$base = $dir . '/assets/sayban-colors.css';
 	if ( file_exists( $base ) ) {
 		wp_enqueue_style( 'sayban-colors', $uri . '/assets/sayban-colors.css', array(), (string) filemtime( $base ) );
+		// Active theme chosen in wp-admin (Sayban Colors) — layered on the base palette.
+		if ( function_exists( 'sayban_active_theme_css' ) ) {
+			$theme_css = sayban_active_theme_css();
+			if ( $theme_css ) { wp_add_inline_style( 'sayban-colors', $theme_css ); }
+		}
 	}
-	// Optional live override from uploads (no deploy needed).
+	// Optional live override from uploads (no deploy needed) — wins over the admin selection.
 	$ov_path = WP_CONTENT_DIR . '/uploads/sayban/sayban-colors.css';
 	if ( file_exists( $ov_path ) ) {
 		wp_enqueue_style( 'sayban-colors-override', content_url( '/uploads/sayban/sayban-colors.css' ), array( 'sayban-colors' ), (string) filemtime( $ov_path ) );

@@ -236,8 +236,11 @@ $price_opts = array( 5000000 => '50 Lakh', 10000000 => '1 Crore', 15000000 => '1
   if (btn && panel) {
 	btn.addEventListener('click', function () {
 	  var show = panel.hasAttribute('hidden');
-	  if (show) { panel.removeAttribute('hidden'); btn.textContent = 'Hide Map';
-		window.dispatchEvent(new Event('resize')); // nudge Leaflet to render tiles
+	  if (show) {
+		panel.removeAttribute('hidden'); btn.textContent = 'Hide Map';
+		// nudge Leaflet to recalc size + load tiles once the panel is laid out
+		[0, 250, 600].forEach(function (t) { setTimeout(function () { window.dispatchEvent(new Event('resize')); }, t); });
+		panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 	  } else { panel.setAttribute('hidden', ''); btn.textContent = 'Show Map'; }
 	});
   }

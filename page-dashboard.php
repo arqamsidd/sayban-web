@@ -124,6 +124,14 @@ $titles = array(
 
 		  <div class="sb-dash-bar"><h1 class="sb-dash-h1">Profile &amp; Contact Info</h1></div>
 		  <p class="sb-dash-lead">Keep your public agent details and contact numbers up to date — buyers see these on your listings.</p>
+
+		  <div class="sb-stepper" id="sb-stepper">
+			<div class="sb-step active" data-step="1"><span class="sb-step-n">1</span><div class="sb-step-t"><b>Personal Info</b><span>name, contact, photo</span></div></div>
+			<div class="sb-step" data-step="2"><span class="sb-step-n">2</span><div class="sb-step-t"><b>Social Profiles</b><span>facebook, x, links</span></div></div>
+			<div class="sb-step" data-step="3"><span class="sb-step-n">3</span><div class="sb-step-t"><b>Skills</b><span>tagline &amp; skills</span></div></div>
+			<div class="sb-step" data-step="4"><span class="sb-step-n">4</span><div class="sb-step-t"><b>Location &amp; Save</b><span>address, map, save</span></div></div>
+		  </div>
+
 		  <div class="sb-post-page sb-dash-formhost"><div class="sb-form-card">
 			<?php echo do_shortcode( '[rem_agent_edit]' ); ?>
 		  </div></div>
@@ -152,6 +160,64 @@ $titles = array(
 	</div>
   </div>
 </div>
+
+<?php if ( $view === 'profile' ) : ?>
+<script>
+/* Turn REM's [rem_agent_edit] form into a 4-step wizard (same treatment as the
+   create-account page). Sections are direct children of #agent-profile-form:
+   .section-title.personal_info / .social_profiles / .skills, then .tab-wrap-location
+   + the Save submit. Group each section into a step by its marker class. */
+(function () {
+  var form = document.querySelector('#agent-profile-form');
+  var stepper = document.getElementById('sb-stepper');
+  if (!form || !stepper) return;
+  var kids = Array.prototype.slice.call(form.children);
+  if (kids.length < 4) return;
+
+  var panels = {};
+  for (var s = 1; s <= 4; s++) { var p = document.createElement('div'); p.className = 'sb-wz-panel'; p.setAttribute('data-step', s); panels[s] = p; }
+
+  var cur = 1;
+  kids.forEach(function (el) {
+	if (!el.matches) { panels[cur].appendChild(el); return; }
+	if (el.matches('.section-title.personal_info')) { cur = 1; }
+	else if (el.matches('.section-title.social_profiles')) { cur = 2; }
+	else if (el.matches('.section-title.skills')) { cur = 3; }
+	else if (el.matches('.tab-wrap-location')) { cur = 4; }
+	panels[cur].appendChild(el);
+  });
+  for (var s2 = 1; s2 <= 4; s2++) { form.appendChild(panels[s2]); }
+
+  var nav = document.createElement('div');
+  nav.className = 'sb-wz-nav';
+  nav.innerHTML = '<button type="button" class="sb-wz-back">&#8592; Back</button><button type="button" class="sb-wz-next">Continue &#8594;</button>';
+  form.appendChild(nav);
+  var backBtn = nav.querySelector('.sb-wz-back');
+  var nextBtn = nav.querySelector('.sb-wz-next');
+
+  var current = 1;
+  function show(step) {
+	current = step;
+	for (var s = 1; s <= 4; s++) { panels[s].style.display = (s === step) ? 'block' : 'none'; }
+	Array.prototype.forEach.call(stepper.querySelectorAll('.sb-step'), function (el) {
+	  var n = +el.getAttribute('data-step');
+	  el.classList.toggle('active', n === step);
+	  el.classList.toggle('done', n < step);
+	});
+	backBtn.style.visibility = step === 1 ? 'hidden' : 'visible';
+	nextBtn.style.display = step === 4 ? 'none' : '';
+	if (step === 4) { setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 60); } // nudge the location map
+	var head = document.querySelector('.sb-dash-bar'); if (head) head.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  nextBtn.addEventListener('click', function () { if (current < 4) show(current + 1); });
+  backBtn.addEventListener('click', function () { if (current > 1) show(current - 1); });
+  Array.prototype.forEach.call(stepper.querySelectorAll('.sb-step'), function (el) {
+	el.addEventListener('click', function () { show(+el.getAttribute('data-step')); });
+  });
+  show(1);
+})();
+</script>
+<?php endif; ?>
 
 <?php if ( $view === 'edit' ) : ?>
 <script>

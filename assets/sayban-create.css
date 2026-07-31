@@ -85,11 +85,13 @@
 .sb-wz-back:hover{border-color:var(--gold); color:var(--gold-deep) !important;}
 .sb-wz-next{background:var(--gold) !important; color:#fff !important; border-color:var(--gold) !important;}
 .sb-wz-next:hover{background:var(--gold-deep) !important; border-color:var(--gold-deep) !important; color:#fff !important;}
-/* the real REM submit button (create / register / login) → gold */
-.sb-form-card #form-submit,.sb-form-card .signin-button,.sb-form-card .button-form{background:var(--gold) !important; color:#fff !important; border:1px solid var(--gold) !important;
+/* the real REM submit button (create / register / login / edit / profile Save) → gold */
+.sb-form-card #form-submit,.sb-form-card .signin-button,.sb-form-card .button-form,
+.sb-form-card input[type="submit"]{background:var(--gold) !important; color:#fff !important; border:1px solid var(--gold) !important;
   border-radius:9px !important; font-family:var(--sans); font-weight:800; font-size:15px; padding:14px 34px !important;
-  min-height:52px; cursor:pointer; margin-top:20px;}
-.sb-form-card #form-submit:hover,.sb-form-card .signin-button:hover,.sb-form-card .button-form:hover{background:var(--gold-deep) !important; border-color:var(--gold-deep) !important; color:#fff !important;}
+  min-height:52px; cursor:pointer; margin-top:20px; width:auto;}
+.sb-form-card #form-submit:hover,.sb-form-card .signin-button:hover,.sb-form-card .button-form:hover,
+.sb-form-card input[type="submit"]:hover{background:var(--gold-deep) !important; border-color:var(--gold-deep) !important; color:#fff !important;}
 
 /* tips rail */
 .sb-post-rail{display:grid; gap:14px; position:sticky; top:90px;}
@@ -106,6 +108,9 @@
 .sb-login-alt a{color:var(--gold-deep); font-weight:700;}
 /* login links (e.g. "Lost your password?") → gold, not default blue */
 .sb-post-grid-login .sb-form-card a{color:var(--gold-deep) !important;}
+/* …but the gold "Go to your dashboard" button keeps white text (beats the link rule) */
+.sb-post-grid-login .sb-form-card a.sb-wz-next{color:#fff !important;}
+.sb-post-grid-login .sb-form-card a.sb-wz-next:hover{color:#fff !important;}
 
 /* ---- REM login form (#rem-login-form) — tidy spacing + button row ---- */
 .sb-form-card #login-page,.sb-form-card #login-page .box{margin:0 !important; padding:0 !important; border:none !important; box-shadow:none !important; background:none !important;}

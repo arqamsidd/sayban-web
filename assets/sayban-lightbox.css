@@ -1,0 +1,23 @@
+/* Sayban.pk — gallery lightbox overlay (shared by project + property single pages) */
+html.sb-lb-open{overflow:hidden;}
+.sb-lb-overlay{position:fixed; inset:0; z-index:100000; background:rgba(12,10,7,.95);
+  display:flex; align-items:center; justify-content:center; animation:sblbfade .18s ease;}
+.sb-lb-overlay[hidden]{display:none;}
+@keyframes sblbfade{from{opacity:0;} to{opacity:1;}}
+.sb-lb-stage{max-width:92vw; max-height:88vh; display:flex; flex-direction:column; align-items:center; gap:14px; cursor:default;}
+.sb-lb-img{max-width:92vw; max-height:82vh; border-radius:8px; box-shadow:0 24px 70px rgba(0,0,0,.6);
+  object-fit:contain; background:#0a0906;}
+.sb-lb-count{color:rgba(255,255,255,.72); font:700 13px/1 'Manrope',system-ui,sans-serif; letter-spacing:.06em;}
+.sb-lb-btn{position:fixed; display:flex; align-items:center; justify-content:center; padding:0;
+  background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.28); color:#fff; cursor:pointer;
+  font-family:system-ui,sans-serif; transition:background-color .15s,border-color .15s; -webkit-tap-highlight-color:transparent;}
+.sb-lb-btn:hover{background:rgba(176,140,70,.9); border-color:#B08C46;}
+.sb-lb-close{top:20px; right:22px; width:46px; height:46px; border-radius:50%; font-size:30px; line-height:1;}
+.sb-lb-prev,.sb-lb-next{top:50%; transform:translateY(-50%); width:54px; height:54px; border-radius:50%; font-size:34px; line-height:1;}
+.sb-lb-prev{left:22px;}
+.sb-lb-next{right:22px;}
+@media (max-width:600px){
+  .sb-lb-prev,.sb-lb-next{width:44px; height:44px; font-size:26px;}
+  .sb-lb-prev{left:10px;} .sb-lb-next{right:10px;}
+  .sb-lb-close{top:12px; right:12px; width:42px; height:42px; font-size:26px;}
+}

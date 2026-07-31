@@ -98,7 +98,7 @@ while ( have_posts() ) : the_post();
 				<?php foreach ( $gallery as $i => $gid ) :
 					$full = wp_get_attachment_image_url( $gid, 'full' );
 					$thumb = wp_get_attachment_image_url( $gid, 'large' ); ?>
-				  <a class="sbp-gal-item<?php echo $i === 0 ? ' sbp-gal-lead' : ''; ?>" href="<?php echo esc_url( $full ); ?>" target="_blank" rel="noopener"
+				  <a class="sbp-gal-item sb-lb<?php echo $i === 0 ? ' sbp-gal-lead' : ''; ?>" href="<?php echo esc_url( $full ); ?>" data-full="<?php echo esc_url( $full ); ?>" data-group="project"
 					 style="background-image:url('<?php echo esc_url( $thumb ); ?>')"></a>
 				<?php endforeach; ?>
 			  </div>

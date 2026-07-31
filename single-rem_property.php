@@ -225,16 +225,7 @@ while ( have_posts() ) :
 	  </div>
 	</div>
 
-	<script>
-	(function(){
-	  // Lightbox: use REM's magnific-popup if present, else no-op (links open image).
-	  if (window.jQuery && jQuery.fn && jQuery.fn.magnificPopup) {
-		jQuery('.sb-gallery').magnificPopup({
-		  delegate: 'a.sb-lightbox', type: 'image', gallery: { enabled: true }
-		});
-	  }
-	})();
-	</script>
+	<?php /* Gallery lightbox (prev/next) handled by the shared assets/sayban-lightbox.js, enqueued on single listings. */ ?>
 
 	<?php
 endwhile;

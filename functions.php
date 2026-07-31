@@ -133,4 +133,16 @@ add_action( 'wp_enqueue_scripts', function () {
 	if ( $is_project ) {
 		$enqueue( 'sayban-project', 'sayban-project.css' );
 	}
+	// Shared gallery lightbox on single listings + single projects.
+	if ( is_singular( 'rem_property' ) || is_singular( 'sayban_project' ) ) {
+		$enqueue( 'sayban-lightbox', 'sayban-lightbox.css' );
+		$ljs = $dir . '/assets/sayban-lightbox.js';
+		wp_enqueue_script(
+			'sayban-lightbox',
+			$uri . '/assets/sayban-lightbox.js',
+			array(),
+			file_exists( $ljs ) ? (string) filemtime( $ljs ) : HELLO_ELEMENTOR_CHILD_VERSION,
+			true
+		);
+	}
 }, 30 );

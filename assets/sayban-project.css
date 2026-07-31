@@ -37,7 +37,9 @@
 .sbp-crumb{font-size:13px; color:rgba(255,255,255,.7); display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:18px;}
 .sbp-crumb a:hover{color:#fff;} .sbp-crumb b{color:#fff; font-weight:700;}
 .sbp-eyebrow{display:inline-block; font-size:11.5px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-deep); margin-bottom:10px;}
-.sbp-h2{font-family:var(--serif); font-size:30px; line-height:1.15; color:var(--ink); margin-bottom:24px;}
+/* .sbp-single/.sbp-archive prefix beats the `.sbp-single h2{margin:0}` reset */
+.sbp-single .sbp-h2,.sbp-archive .sbp-h2{font-family:var(--serif); font-size:30px; line-height:1.15; color:var(--ink); margin:0 0 24px;}
+.sbp-pay-head .sbp-h2{margin-bottom:0;}
 
 /* ================= HERO ================= */
 .sbp-hero{position:relative; min-height:520px; display:flex; align-items:flex-end; overflow:hidden; background:var(--dark);}

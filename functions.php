@@ -44,6 +44,32 @@ function hello_elementor_child_scripts_styles() {
 add_action( 'wp_enqueue_scripts', 'hello_elementor_child_scripts_styles', 20 );
 
 /**
+ * Sitewide color system — the single source of truth for every color on the
+ * site (custom templates, Elementor pages, and REM). Loaded on EVERY front-end
+ * page, early, so its :root variables are always available to resolve var()s.
+ *
+ *  1. assets/sayban-colors.css  — the default, fully-commented palette (edit to
+ *     re-theme the whole site).
+ *  2. uploads/sayban/sayban-colors.css  — OPTIONAL override, loaded last, wins.
+ *     Drop a variation file here to re-skin the live site with no code deploy;
+ *     delete it to fall back to the theme default.
+ */
+function sayban_enqueue_color_system() {
+	$dir  = get_stylesheet_directory();
+	$uri  = get_stylesheet_directory_uri();
+	$base = $dir . '/assets/sayban-colors.css';
+	if ( file_exists( $base ) ) {
+		wp_enqueue_style( 'sayban-colors', $uri . '/assets/sayban-colors.css', array(), (string) filemtime( $base ) );
+	}
+	// Optional live override from uploads (no deploy needed).
+	$ov_path = WP_CONTENT_DIR . '/uploads/sayban/sayban-colors.css';
+	if ( file_exists( $ov_path ) ) {
+		wp_enqueue_style( 'sayban-colors-override', content_url( '/uploads/sayban/sayban-colors.css' ), array( 'sayban-colors' ), (string) filemtime( $ov_path ) );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'sayban_enqueue_color_system', 1 );
+
+/**
  * Sayban: use our custom single-property template instead of REM Pro's.
  * REM hooks template_include at priority 99; we run at 100 so ours wins.
  */

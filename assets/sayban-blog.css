@@ -3,10 +3,10 @@
    Matches the Claude Design language. Fonts/styles free (non-Elementor pages).
    ========================================================================== */
 .sb-blog, .sb-article{
-  --ink:#2A2925; --ink2:#57544C; --ink3:#8B8578;
-  --gold:#B08C46; --gold-deep:#8E6E2F; --gold-soft:#F3EAD7;
-  --teal:#0E6E5E; --teal-deep:#0A5547; --teal-soft:#E2EFEA;
-  --bg:#FAF8F3; --surface:#FFFFFF; --line:#E8E2D4; --line2:#D9D2C0; --brick:#A8442E;
+  --ink:var(--sb-charcoal); --ink2:var(--sb-ink-2); --ink3:var(--sb-ink-3);
+  --gold:var(--sb-gold); --gold-deep:var(--sb-gold-deep); --gold-soft:var(--sb-gold-soft);
+  --teal:var(--sb-teal); --teal-deep:var(--sb-teal-deep); --teal-soft:var(--sb-teal-soft);
+  --bg:var(--sb-paper); --surface:#FFFFFF; --line:var(--sb-line); --line2:var(--sb-line-2); --brick:var(--sb-brick);
   --serif:'Marcellus', Georgia, serif;
   --sans:'Manrope','Segoe UI',system-ui,sans-serif;
   background:var(--bg); font-family:var(--sans); color:var(--ink); line-height:1.6;
@@ -145,7 +145,7 @@ a.sb-chip:hover{background:var(--teal); color:#fff;}
 .sb-article-body{max-width:760px; margin:0 auto; padding:44px 24px 8px;}
 
 /* article typography */
-.sb-article-content{font-size:18px; line-height:1.8; color:#3a382f;}
+.sb-article-content{font-size:18px; line-height:1.8; color:var(--sb-ink-soft);}
 .sb-article-content > *:first-child{margin-top:0;}
 .sb-article-content p{margin:0 0 24px;}
 .sb-article-content h2{font-family:var(--serif); font-size:29px; line-height:1.22; color:var(--ink); margin:44px 0 16px;}

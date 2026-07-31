@@ -4,10 +4,10 @@
    forms reuse sayban-create.css (.sb-post-page .sb-form-card).
    ========================================================================== */
 .sb-dash{
-  --ink:#2A2925; --ink2:#57544C; --ink3:#8B8578;
-  --gold:#B08C46; --gold-deep:#8E6E2F; --gold-soft:#F3EAD7;
-  --teal:#0E6E5E; --teal-deep:#0A5547; --teal-soft:#E2EFEA;
-  --bg:#FAF8F3; --surface:#FFFFFF; --line:#E8E2D4; --line2:#D9D2C0; --brick:#A8442E; --brick-soft:#F5E4DF;
+  --ink:var(--sb-charcoal); --ink2:var(--sb-ink-2); --ink3:var(--sb-ink-3);
+  --gold:var(--sb-gold); --gold-deep:var(--sb-gold-deep); --gold-soft:var(--sb-gold-soft);
+  --teal:var(--sb-teal); --teal-deep:var(--sb-teal-deep); --teal-soft:var(--sb-teal-soft);
+  --bg:var(--sb-paper); --surface:#FFFFFF; --line:var(--sb-line); --line2:var(--sb-line-2); --brick:var(--sb-brick); --brick-soft:#F5E4DF;
   --serif:'Marcellus', Georgia, serif; --sans:'Manrope','Segoe UI',system-ui,sans-serif;
   background:var(--bg); font-family:var(--sans); color:var(--ink); line-height:1.55;
 }
@@ -35,7 +35,7 @@
 .sb-dash-menu{display:flex; flex-direction:column; gap:2px; padding:4px;}
 .sb-dash-menu a{display:flex; align-items:center; gap:11px; padding:11px 14px; border-radius:9px; font-size:14px; font-weight:600;
   color:var(--ink2); transition:background-color .15s,color .15s;}
-.sb-dash-menu a:hover{background:#FCFAF5; color:var(--ink);}
+.sb-dash-menu a:hover{background:var(--sb-paper-2); color:var(--ink);}
 .sb-dash-menu a.on{background:var(--gold-soft); color:var(--gold-deep); font-weight:800;}
 .sb-dash-ico{width:18px; text-align:center; font-size:14px; opacity:.9;}
 .sb-dash-menu a.on .sb-dash-ico{color:var(--gold-deep);}
@@ -75,7 +75,7 @@
 
 .sb-dash-tablecard .table-responsive{border:none !important; margin:0;}
 .sb-dash-tablecard table{width:100%; border-collapse:collapse; margin:0; background:transparent;}
-/* REM paints the header row with its accent (our brand teal #0E6E5E) via an
+/* REM paints the header row with its accent (our brand teal var(--sb-teal)) via an
    id-anchored !important rule — embrace it: keep white text + our spacing. */
 .sb-dash-tablecard thead th{border:none !important; padding:14px !important;
   font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:#fff !important; text-align:left;}
@@ -84,7 +84,7 @@
 .sb-dash-tablecard tbody td{border:none !important; border-bottom:1px solid var(--line) !important; padding:14px !important;
   vertical-align:middle; font-size:13.5px; color:var(--ink2); background:transparent !important;}
 .sb-dash-tablecard tbody tr:last-child td{border-bottom:none !important;}
-.sb-dash-tablecard tbody tr:hover td{background:#FCFAF5 !important;}
+.sb-dash-tablecard tbody tr:hover td{background:var(--sb-paper-2) !important;}
 .sb-dash-tablecard .img-wrap{width:66px;}
 .sb-dash-tablecard .img-wrap img,.sb-dash-tablecard td img.rem-f-image{width:60px !important; height:60px !important;
   object-fit:cover; border-radius:9px; border:1px solid var(--line); display:block;}

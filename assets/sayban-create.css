@@ -3,10 +3,10 @@
    Design chrome + wizard around REM's [rem_create_property] form.
    ========================================================================== */
 .sb-post-page{
-  --ink:#2A2925; --ink2:#57544C; --ink3:#8B8578;
-  --gold:#B08C46; --gold-deep:#8E6E2F; --gold-soft:#F3EAD7;
-  --teal:#0E6E5E; --teal-deep:#0A5547; --teal-soft:#E2EFEA;
-  --bg:#FAF8F3; --surface:#FFFFFF; --line:#E8E2D4; --line2:#D9D2C0; --brick:#A8442E;
+  --ink:var(--sb-charcoal); --ink2:var(--sb-ink-2); --ink3:var(--sb-ink-3);
+  --gold:var(--sb-gold); --gold-deep:var(--sb-gold-deep); --gold-soft:var(--sb-gold-soft);
+  --teal:var(--sb-teal); --teal-deep:var(--sb-teal-deep); --teal-soft:var(--sb-teal-soft);
+  --bg:var(--sb-paper); --surface:#FFFFFF; --line:var(--sb-line); --line2:var(--sb-line-2); --brick:var(--sb-brick);
   --serif:'Marcellus', Georgia, serif; --sans:'Manrope','Segoe UI',system-ui,sans-serif;
   background:var(--bg); font-family:var(--sans); color:var(--ink); line-height:1.55;
 }
@@ -26,7 +26,7 @@
 .sb-step{flex:1; display:flex; gap:12px; align-items:center; padding:16px 20px; border-left:1px solid var(--line);
   color:var(--ink3); cursor:pointer; transition:background-color .15s;}
 .sb-step:first-child{border-left:none;}
-.sb-step:hover{background:#FCFAF5;}
+.sb-step:hover{background:var(--sb-paper-2);}
 .sb-step-n{width:30px; height:30px; border-radius:999px; border:1.5px solid var(--line2); display:grid; place-items:center;
   font-weight:800; font-size:13px; flex:none; color:var(--ink3); background:#fff;}
 .sb-step-t b{font-size:13.5px; display:block; color:inherit;}

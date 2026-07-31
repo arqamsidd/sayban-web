@@ -1,0 +1,75 @@
+/* ============================================================================
+   SAYBAN.PK — SITEWIDE COLOR SYSTEM  (edit this one file to re-theme the site)
+   ============================================================================
+
+   HOW THIS WORKS
+   --------------
+   Every color on the site is driven by the CSS variables below. Change a value
+   here and it updates EVERYWHERE at once — the custom pages built by us
+   (listings, single property, blog, dashboard, projects, create/registration)
+   AND the Elementor pages (Home, Company, Contact) AND the Real Estate Manager
+   plugin pages. Nothing else needs editing.
+
+   HOW TO MAKE A COLOR VARIATION FOR THE CLIENT
+   --------------------------------------------
+   Option A (simple): edit the hex values in the :root block below.
+   Option B (no re-deploy, best for trying variations on the live server):
+     create a file at   wp-content/uploads/sayban/sayban-colors.css
+     containing just a :root { ... } block with the few variables you want to
+     override. It loads AFTER this file and wins. Delete it to go back.
+
+   THE PALETTE AT A GLANCE
+   -----------------------
+   Gold    = the brand + all calls-to-action, prices, links, active states.
+   Charcoal= primary text and every dark section (headers, footers, hero bands).
+   Teal    = the marketplace accent (rent badges, ticks, filters, map).
+   Paper   = the warm off-white page background.  Surface = white cards.
+   Change GOLD, CHARCOAL and TEAL and you have re-skinned ~95% of the site.
+   ========================================================================== */
+
+:root {
+
+  /* ---- GOLD  (primary brand) --------------------------------------------
+     Used for: every button / call-to-action, property PRICES, links, active
+     tab underlines, icons, focus rings, "Featured" badges, the logo lockup.
+     This is the single most important color on the site.                    */
+  --sb-gold:        #B08C46;   /* primary gold — buttons, prices, accents      */
+  --sb-gold-deep:   #8E6E2F;   /* darker gold — button hover, bold price text  */
+  --sb-gold-soft:   #F3EAD7;   /* pale gold fill — chips, table headers, tints */
+  --sb-gold-lite:   #E2CEA6;   /* light gold — thin rules, dividers, borders   */
+  --sb-gold-mid:    #B9975D;   /* mid gold — gradient stops, secondary accents */
+
+  /* ---- CHARCOAL / INK  (text + dark sections) ---------------------------
+     Used for: primary body + heading text, and the dark bands — top utility
+     bar, footer, hero overlays, dark CTA sections, dark project cards.        */
+  --sb-charcoal:    #2A2925;   /* primary text; all dark section backgrounds   */
+  --sb-ink-2:       #57544C;   /* secondary text, field labels                 */
+  --sb-ink-3:       #8B8578;   /* muted text — meta, captions, placeholders    */
+  --sb-ink-soft:    #3A382F;   /* long-form article body text (blog)           */
+
+  /* ---- TEAL  (marketplace accent) ---------------------------------------
+     Used for: "For Rent" badges, amenity ✓ ticks, filter/checkbox accents,
+     category chips, the "Map view" strip. The secondary brand color.          */
+  --sb-teal:        #0E6E5E;   /* teal accent — rent badge, ticks, filters     */
+  --sb-teal-deep:   #0A5547;   /* dark teal — hover / pressed                   */
+  --sb-teal-soft:   #E2EFEA;   /* pale teal — chip / pill backgrounds          */
+
+  /* ---- SURFACES  (backgrounds) ------------------------------------------ */
+  --sb-paper:       #FAF8F3;   /* page background — warm paper                  */
+  --sb-paper-2:     #FCFAF5;   /* alt paper — inset panels, zebra rows          */
+  --sb-surface:     #FFFFFF;   /* cards, form fields, elevated surfaces         */
+
+  /* ---- LINES  (borders + dividers) -------------------------------------- */
+  --sb-line:        #E8E2D4;   /* hairline borders, dividers                    */
+  --sb-line-2:      #D9D2C0;   /* stronger hairline — inputs, hover borders     */
+
+  /* ---- ACCENTS  (used sparingly) ---------------------------------------- */
+  --sb-brick:       #A8442E;   /* brick red — rare highlights / error notes     */
+  --sb-success:     #1FA855;   /* green — success / "Active" status pills        */
+
+  /* ---- DEEP DARK  (project heroes) --------------------------------------
+     Warm near-blacks behind the project hero photos + dark gradients.         */
+  --sb-dark:        #17130D;   /* deepest warm black — hero scrims, lightbox    */
+  --sb-dark-2:      #1E1A12;   /* dark warm surface                             */
+
+}

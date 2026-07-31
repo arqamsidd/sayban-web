@@ -79,7 +79,7 @@ function sb_url( $overrides = array() ) {
 	return $q ? $base . '?' . http_build_query( $q ) : $base;
 }
 
-$types_list = array( 'House', 'Flat / Apartment', 'Upper / Lower Portion', 'Plot / Land', 'Office / Shop' );
+$types_list = function_exists( 'sayban_property_types' ) ? sayban_property_types() : array( 'House', 'Flat / Apartment', 'Upper / Lower Portion', 'Plot / Land', 'Office / Shop' );
 $price_opts = array( 5000000 => '50 Lakh', 10000000 => '1 Crore', 15000000 => '1.5 Crore', 20000000 => '2 Crore', 30000000 => '3 Crore', 50000000 => '5 Crore' );
 ?>
 

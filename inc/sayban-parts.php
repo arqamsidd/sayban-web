@@ -24,6 +24,29 @@ function sayban_currency() {
 }
 
 /**
+ * Canonical property-type list — the single source of truth shared by the
+ * finder ([sayban_finder]) and the listings filter (page-listings.php).
+ *
+ * Resolves through REM's own `rem_property_types` filter, so it always matches
+ * what the Add-Property form offers. That filter honours REM Settings →
+ * "Property Type Options" (option rem_all_settings['property_type_options']),
+ * so editing the list in the WP admin updates the form AND our filters at once.
+ * Falls back to a Pakistan-market list only if REM's filter isn't registered.
+ */
+function sayban_property_types() {
+	if ( has_filter( 'rem_property_types' ) ) {
+		$defaults = array(
+			'Duplex' => 'Duplex', 'House' => 'House', 'Office' => 'Office',
+			'Retail' => 'Retail', 'Vila'  => 'Vila',
+		); // REM core defaults; replaced by the "Property Type Options" setting.
+		$types = apply_filters( 'rem_property_types', $defaults );
+		$list  = array_values( array_filter( array_map( 'trim', (array) $types ) ) );
+		if ( $list ) { return $list; }
+	}
+	return array( 'House', 'Flat / Apartment', 'Upper / Lower Portion', 'Plot / Land', 'Office / Shop' );
+}
+
+/**
  * Resolve a Sayban page URL by the REM shortcode(s) it contains, then return
  * get_permalink() for it — so internal links keep working even if the page slug
  * (or ID) changes. Cached per request. Keys: login, register, create, dashboard, listings.
@@ -110,7 +133,7 @@ function sayban_finder_shortcode( $atts ) {
 	$target = sayban_page_url( 'listings' );
 	$counts = wp_count_posts( 'rem_property' );
 	$active = $counts && isset( $counts->publish ) ? (int) $counts->publish : 0;
-	$types  = array( 'House', 'Flat / Apartment', 'Upper / Lower Portion', 'Plot / Land', 'Office / Shop' );
+	$types  = sayban_property_types();
 	$prices = array( 10000000 => 'Under 1 Crore', 20000000 => 'Under 2 Crore', 30000000 => 'Under 3 Crore', 50000000 => 'Under 5 Crore' );
 	ob_start(); ?>
 	<div class="sayban-finder">

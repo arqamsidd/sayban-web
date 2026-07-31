@@ -23,6 +23,37 @@ function sayban_currency() {
 	return function_exists( 'rem_get_currency_symbol' ) ? rem_get_currency_symbol() : 'PKR ';
 }
 
+/**
+ * Resolve a Sayban page URL by the REM shortcode(s) it contains, then return
+ * get_permalink() for it — so internal links keep working even if the page slug
+ * (or ID) changes. Cached per request. Keys: login, register, create, dashboard, listings.
+ */
+function sayban_page_url( $key ) {
+	static $cache = array();
+	if ( array_key_exists( $key, $cache ) ) { return $cache[ $key ]; }
+	global $wpdb;
+	$find = function ( $includes, $exclude = '' ) use ( $wpdb ) {
+		$includes = (array) $includes;
+		$where = '';
+		$args  = array();
+		foreach ( $includes as $inc ) { $where .= ' AND post_content LIKE %s'; $args[] = '%' . $wpdb->esc_like( $inc ) . '%'; }
+		if ( $exclude ) { $where .= ' AND post_content NOT LIKE %s'; $args[] = '%' . $wpdb->esc_like( $exclude ) . '%'; }
+		$sql = "SELECT ID FROM {$wpdb->posts} WHERE post_type='page' AND post_status='publish'" . $where . ' ORDER BY ID ASC LIMIT 1';
+		return (int) $wpdb->get_var( $wpdb->prepare( $sql, $args ) );
+	};
+	$id = 0;
+	switch ( $key ) {
+		case 'login':     $id = $find( '[rem_agent_login', '[rem_create_property' ); break; // standalone login (not the create wrapper)
+		case 'register':  $id = $find( '[rem_register_agent' ); break;
+		case 'create':    $id = $find( '[rem_create_property' ); break;
+		case 'dashboard': $id = $find( '[rem_my_properties' ); break;
+		case 'listings':  $id = $find( array( '[rem_list_properties', 'top_bar' ) ); break; // our /properties/ page (id 604)
+	}
+	$url = $id ? get_permalink( $id ) : home_url( '/' );
+	$cache[ $key ] = $url;
+	return $url;
+}
+
 /* Collect the fields a card needs for one listing. */
 function sayban_listing_data( $pid ) {
 	$cats = wp_get_post_terms( $pid, 'rem_property_cat', array( 'fields' => 'slugs' ) );
@@ -74,7 +105,7 @@ function sayban_card_html( $it ) {
    [sayban_finder]  — hero property finder (tabs + fields → /properties/)
    ========================================================================= */
 function sayban_finder_shortcode( $atts ) {
-	$target = home_url( '/properties/' );
+	$target = sayban_page_url( 'listings' );
 	$counts = wp_count_posts( 'rem_property' );
 	$active = $counts && isset( $counts->publish ) ? (int) $counts->publish : 0;
 	$types  = array( 'House', 'Flat / Apartment', 'Upper / Lower Portion', 'Plot / Land', 'Office / Shop' );

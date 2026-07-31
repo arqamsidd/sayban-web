@@ -45,7 +45,7 @@ $logged = is_user_logged_in();
 		</div>
 		<div class="sb-next-card">
 		  <b>Already have an account?</b>
-		  <a href="<?php echo esc_url( home_url( '/agent-login-page/' ) ); ?>" style="color:var(--gold-deep);font-weight:700;">Log in here →</a>
+		  <a href="<?php echo esc_url( sayban_page_url( 'login' ) ); ?>" style="color:var(--gold-deep);font-weight:700;">Log in here →</a>
 		</div>
 	  </aside>
 	  <?php endif; ?>

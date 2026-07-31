@@ -21,10 +21,10 @@ $logged = is_user_logged_in();
 	  <div class="sb-form-card sb-login-card">
 		<?php if ( $logged ) : ?>
 		  <p style="font-size:15px;color:var(--ink2);margin:0 0 14px;">You're already logged in.</p>
-		  <a class="sb-wz-next" style="display:inline-block;text-decoration:none;" href="<?php echo esc_url( home_url( '/my-properties-page/' ) ); ?>">Go to your dashboard &#8594;</a>
+		  <a class="sb-wz-next" style="display:inline-block;text-decoration:none;" href="<?php echo esc_url( sayban_page_url( 'dashboard' ) ); ?>">Go to your dashboard &#8594;</a>
 		<?php else : ?>
 		  <?php echo do_shortcode( '[rem_agent_login heading="Please enter your email and password."]' ); ?>
-		  <div class="sb-login-alt">New to Sayban? <a href="<?php echo esc_url( home_url( '/agent-registration/' ) ); ?>">Create an account &#8594;</a></div>
+		  <div class="sb-login-alt">New to Sayban? <a href="<?php echo esc_url( sayban_page_url( 'register' ) ); ?>">Create an account &#8594;</a></div>
 		<?php endif; ?>
 	  </div>
 	</div>

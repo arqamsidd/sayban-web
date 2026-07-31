@@ -109,7 +109,6 @@ $price_opts = array( 5000000 => '50 Lakh', 10000000 => '1 Crore', 15000000 => '1
 			<label class="<?php echo $f_purpose === '' ? 'on' : ''; ?>"><input type="radio" name="purpose" value="" <?php checked( $f_purpose, '' ); ?> onchange="this.form.submit()">All</label>
 			<label class="<?php echo $f_purpose === 'buy' ? 'on' : ''; ?>"><input type="radio" name="purpose" value="buy" <?php checked( $f_purpose, 'buy' ); ?> onchange="this.form.submit()">Buy</label>
 			<label class="<?php echo $f_purpose === 'rent' ? 'on' : ''; ?>"><input type="radio" name="purpose" value="rent" <?php checked( $f_purpose, 'rent' ); ?> onchange="this.form.submit()">Rent</label>
-			<label class="<?php echo $f_purpose === 'plot' ? 'on' : ''; ?>"><input type="radio" name="purpose" value="plot" <?php checked( $f_purpose, 'plot' ); ?> onchange="this.form.submit()">Plot</label>
 		  </div>
 		</div>
 

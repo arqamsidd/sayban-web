@@ -1,0 +1,115 @@
+/* ============================================================================
+   Sayban.pk — Post a Property page (scoped to .sb-post-page)
+   Design chrome + wizard around REM's [rem_create_property] form.
+   ========================================================================== */
+.sb-post-page{
+  --ink:#2A2925; --ink2:#57544C; --ink3:#8B8578;
+  --gold:#B08C46; --gold-deep:#8E6E2F; --gold-soft:#F3EAD7;
+  --teal:#0E6E5E; --teal-deep:#0A5547; --teal-soft:#E2EFEA;
+  --bg:#FAF8F3; --surface:#FFFFFF; --line:#E8E2D4; --line2:#D9D2C0; --brick:#A8442E;
+  --serif:'Marcellus', Georgia, serif; --sans:'Manrope','Segoe UI',system-ui,sans-serif;
+  background:var(--bg); font-family:var(--sans); color:var(--ink); line-height:1.55;
+}
+.sb-post-page *{box-sizing:border-box;}
+.sb-post-wrap{max-width:1180px; margin:0 auto; padding:36px 40px 72px;}
+
+/* header */
+.sb-post-head{margin-bottom:26px;}
+.sb-kicker{display:inline-flex; align-items:center; gap:10px; color:var(--gold-deep); font-size:12.5px;
+  font-weight:800; letter-spacing:.18em; text-transform:uppercase; margin-bottom:10px;}
+.sb-kicker::before{content:""; width:28px; height:2px; background:var(--gold);}
+.sb-post-title{font-family:var(--serif); font-size:32px; font-weight:400; line-height:1.15; margin:0;}
+.sb-post-sub{color:var(--ink2); font-size:15.5px; margin:8px 0 0;}
+
+/* stepper */
+.sb-stepper{display:flex; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#fff; margin-bottom:26px;}
+.sb-step{flex:1; display:flex; gap:12px; align-items:center; padding:16px 20px; border-left:1px solid var(--line);
+  color:var(--ink3); cursor:pointer; transition:background-color .15s;}
+.sb-step:first-child{border-left:none;}
+.sb-step:hover{background:#FCFAF5;}
+.sb-step-n{width:30px; height:30px; border-radius:999px; border:1.5px solid var(--line2); display:grid; place-items:center;
+  font-weight:800; font-size:13px; flex:none; color:var(--ink3); background:#fff;}
+.sb-step-t b{font-size:13.5px; display:block; color:inherit;}
+.sb-step-t span{font-size:11.5px;}
+.sb-step.active{color:var(--ink); background:var(--gold-soft);}
+.sb-step.active .sb-step-n{background:var(--gold); border-color:var(--gold); color:#fff;}
+.sb-step.done{color:var(--ink2);}
+.sb-step.done .sb-step-n{background:var(--teal); border-color:var(--teal); color:#fff;}
+.sb-step.done .sb-step-n::after{content:"✓";} .sb-step.done .sb-step-n{font-size:0;} .sb-step.done .sb-step-n::after{font-size:14px;}
+
+/* layout */
+.sb-post-grid{display:grid; grid-template-columns:1fr 320px; gap:26px; align-items:start;}
+.sb-post-grid-login{grid-template-columns:minmax(0,560px); justify-content:center;}
+.sb-form-card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:30px; box-shadow:0 12px 34px rgba(31,28,20,.06);}
+
+/* ---- REM create form, restyled ---- */
+.sb-form-card #new-property,.sb-form-card .ich-settings-main-wrap{max-width:none !important; margin:0 !important;}
+.sb-form-card .info-block{margin:0 0 4px;}
+.sb-form-card .section-title{margin:0 0 18px !important;}
+.sb-form-card .section-title .title,.sb-form-card h3.title{font-family:var(--serif) !important; font-size:20px !important;
+  font-weight:400 !important; color:var(--ink) !important; padding-bottom:8px; margin:0;}
+.sb-form-card .space-form{margin-bottom:16px;}
+.sb-form-card .space-form label,.sb-form-card label{display:block; font-size:11.5px; font-weight:800; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--ink3); margin-bottom:6px;}
+.sb-form-card input[type="text"],.sb-form-card input[type="email"],.sb-form-card input[type="number"],
+.sb-form-card input[type="tel"],.sb-form-card input[type="url"],.sb-form-card select,.sb-form-card textarea,
+.sb-form-card .form-control{width:100%; min-height:46px; border:1px solid var(--line2) !important; border-radius:9px !important;
+  padding:10px 14px; font-family:var(--sans); font-size:14.5px; color:var(--ink); background:#fff;}
+.sb-form-card textarea{min-height:120px;}
+.sb-form-card input:focus,.sb-form-card select:focus,.sb-form-card textarea:focus,.sb-form-card .form-control:focus{
+  border-color:var(--gold) !important; box-shadow:0 0 0 3px rgba(176,140,70,.15) !important; outline:none;}
+
+/* amenities checkboxes */
+.sb-form-card .rem-checkboxes-wrap{display:grid; grid-template-columns:repeat(3,1fr); gap:4px 18px;}
+.sb-form-card .rem-single-checkbox{display:flex; align-items:center; gap:8px; font-size:14px; color:var(--ink2); padding:5px 0;}
+.sb-form-card .rem-single-checkbox input{accent-color:var(--teal); width:17px; height:17px;}
+
+/* upload buttons / zones */
+.sb-form-card .upload_image_button,.sb-form-card .upload-attachment{background:transparent !important; color:var(--ink) !important;
+  border:1px dashed var(--line2) !important; border-radius:10px !important; padding:14px 20px !important; font-weight:700; width:100%;}
+.sb-form-card .upload_image_button:hover,.sb-form-card .upload-attachment:hover{border-color:var(--gold) !important; color:var(--gold-deep) !important;}
+.sb-form-card #insert-media-button{border-radius:8px;}
+
+/* wizard */
+.sb-wz-panel{animation:sbfade .2s ease;}
+@keyframes sbfade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
+.sb-wz-review{padding:8px 0 4px;}
+.sb-wz-review .title{font-family:var(--serif); font-size:22px; margin:0 0 8px;}
+.sb-wz-review p{color:var(--ink2); font-size:14.5px; max-width:520px;}
+.sb-wz-nav{display:flex; justify-content:space-between; align-items:center; margin-top:26px; padding-top:22px; border-top:1px solid var(--line);}
+.sb-wz-back,.sb-wz-next{font-family:var(--sans); font-weight:700; font-size:14.5px; border-radius:9px; cursor:pointer; border:1px solid transparent; padding:12px 26px;}
+.sb-wz-back{background:transparent; border-color:var(--line2); color:var(--ink);}
+.sb-wz-back:hover{border-color:var(--gold); color:var(--gold-deep);}
+.sb-wz-next{background:var(--gold); color:#fff; border-color:var(--gold);}
+.sb-wz-next:hover{background:var(--gold-deep); border-color:var(--gold-deep);}
+/* the real REM submit button (last step) → gold */
+.sb-form-card #form-submit{background:var(--gold) !important; color:#fff !important; border:1px solid var(--gold) !important;
+  border-radius:9px !important; font-family:var(--sans); font-weight:800; font-size:15px; padding:14px 34px !important;
+  min-height:52px; cursor:pointer; margin-top:20px;}
+.sb-form-card #form-submit:hover{background:var(--gold-deep) !important; border-color:var(--gold-deep) !important;}
+
+/* tips rail */
+.sb-post-rail{display:grid; gap:14px; position:sticky; top:90px;}
+.sb-tip-card{background:var(--teal-soft); border:1px solid #C8DED6; border-radius:12px; padding:20px; font-size:13.5px; color:var(--teal-deep);}
+.sb-tip-card b{display:block; margin-bottom:10px; font-size:14.5px;}
+.sb-tip-card ul{margin:0; padding-left:18px;} .sb-tip-card li{margin-bottom:7px;}
+.sb-next-card{background:#fff; border:1px solid var(--line); border-radius:12px; padding:20px; font-size:13.5px; color:var(--ink2);}
+.sb-next-card b{color:var(--ink); display:block; margin-bottom:6px;}
+
+/* logged-out login form */
+.sb-post-grid-login .sb-form-card{padding:34px;}
+.sb-post-page .rem-login-heading,.sb-post-page .agent-login h3{font-family:var(--serif); font-weight:400; color:var(--ink);}
+
+/* responsive */
+@media (max-width:991px){
+  .sb-post-wrap{padding:24px 20px 56px;}
+  .sb-post-grid{grid-template-columns:1fr; gap:22px;}
+  .sb-post-rail{position:static;}
+  .sb-stepper{flex-wrap:wrap;}
+  .sb-step{flex:1 1 50%; border-left:none; border-top:1px solid var(--line);}
+  .sb-form-card .rem-checkboxes-wrap{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:560px){
+  .sb-step{flex:1 1 100%;}
+  .sb-form-card{padding:20px;}
+}

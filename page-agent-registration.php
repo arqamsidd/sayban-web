@@ -23,8 +23,7 @@ $logged = is_user_logged_in();
 	<div class="sb-stepper" id="sb-stepper">
 	  <div class="sb-step active" data-step="1"><span class="sb-step-n">1</span><div class="sb-step-t"><b>Your Details</b><span>name, email, password</span></div></div>
 	  <div class="sb-step" data-step="2"><span class="sb-step-n">2</span><div class="sb-step-t"><b>Contact &amp; Social</b><span>phone, WhatsApp, links</span></div></div>
-	  <div class="sb-step" data-step="3"><span class="sb-step-n">3</span><div class="sb-step-t"><b>About You</b><span>tagline, skills</span></div></div>
-	  <div class="sb-step" data-step="4"><span class="sb-step-n">4</span><div class="sb-step-t"><b>Location &amp; Finish</b><span>map, create account</span></div></div>
+	  <div class="sb-step" data-step="3"><span class="sb-step-n">3</span><div class="sb-step-t"><b>About You &amp; Finish</b><span>tagline, skills, create</span></div></div>
 	</div>
 	<?php endif; ?>
 
@@ -57,33 +56,48 @@ $logged = is_user_logged_in();
 <?php if ( ! $logged ) : ?>
 <script>
 (function () {
-  var form = document.querySelector('#agent_login, form.register-agent, form[id*="agent"]');
+  var form = document.querySelector('#agent_login') || document.querySelector('form[id*="agent"]');
   var stepper = document.getElementById('sb-stepper');
   if (!form || !stepper) return;
-  var blocks = Array.prototype.slice.call(form.querySelectorAll('[class*="tab-wrap-"]'));
-  if (blocks.length < 2) return;
 
-  function stepFor(cls) {
-	cls = (cls || '').toLowerCase();
-	if (/social/.test(cls)) return 2;
-	if (/skill/.test(cls)) return 3;
-	if (/location/.test(cls)) return 4;
-	return 1; // personal_info
+  // REM outputs the fields as a flat <ul class="profile create"> of <li> items;
+  // group those <li> by field name into the 3 wizard steps.
+  var lis = Array.prototype.slice.call(form.querySelectorAll('li')).filter(function (li) {
+	return li.querySelector('input[name], select[name], textarea[name]');
+  });
+  if (lis.length < 3) return;
+
+  function stepForLi(li) {
+	var inp = li.querySelector('input[name], select[name], textarea[name]');
+	var name = inp ? (inp.getAttribute('name') || '').toLowerCase() : '';
+	if (/tagline|skills/.test(name)) return 3;
+	if (/agent_url|mobile|whatsapp|facebook|twitter|linkedin|instagram|youtube/.test(name)) return 2;
+	return 1; // name, email, password, description, avatar
   }
 
-  var host = blocks[0].parentNode;
-  var panels = {};
-  for (var s = 1; s <= 4; s++) { var p = document.createElement('div'); p.className = 'sb-wz-panel'; p.setAttribute('data-step', s); panels[s] = p; }
-  blocks.forEach(function (b) { panels[ stepFor(b.className) ].appendChild(b); });
+  var LAST = 3;
+  var srcUl = lis[0].parentNode;
+  var host = srcUl.parentNode;
+  var panels = {}, uls = {};
+  for (var s = 1; s <= LAST; s++) {
+	var p = document.createElement('div'); p.className = 'sb-wz-panel'; p.setAttribute('data-step', s);
+	var u = document.createElement('ul'); u.className = srcUl.className || 'profile create';
+	p.appendChild(u); panels[s] = p; uls[s] = u;
+  }
+  lis.forEach(function (li) { uls[ stepForLi(li) ].appendChild(li); });
 
-  // move the real submit button into step 4
-  var submit = form.querySelector('.signin-button, button[type="submit"], input[type="submit"]');
-  if (submit) { panels[4].appendChild(submit); }
+  // review + real submit → last step
+  var submit = form.querySelector('.signin-button') || form.querySelector('[type="submit"]');
+  if (submit) {
+	var rev = document.createElement('div'); rev.className = 'sb-wz-review';
+	rev.innerHTML = '<p>Almost there — create your account and start listing. It only takes a minute.</p>';
+	panels[LAST].appendChild(rev);
+	panels[LAST].appendChild(submit);
+  }
+  for (var s2 = 1; s2 <= LAST; s2++) { host.appendChild(panels[s2]); }
+  if (srcUl && !srcUl.querySelector('li')) { srcUl.style.display = 'none'; }
 
-  for (var s2 = 1; s2 <= 4; s2++) { host.appendChild(panels[s2]); }
-
-  var nav = document.createElement('div');
-  nav.className = 'sb-wz-nav';
+  var nav = document.createElement('div'); nav.className = 'sb-wz-nav';
   nav.innerHTML = '<button type="button" class="sb-wz-back">&#8592; Back</button><button type="button" class="sb-wz-next">Continue &#8594;</button>';
   host.appendChild(nav);
   var backBtn = nav.querySelector('.sb-wz-back');
@@ -92,18 +106,17 @@ $logged = is_user_logged_in();
   var current = 1;
   function show(step) {
 	current = step;
-	for (var s = 1; s <= 4; s++) { panels[s].style.display = (s === step) ? 'block' : 'none'; }
+	for (var s = 1; s <= LAST; s++) { panels[s].style.display = (s === step) ? 'block' : 'none'; }
 	Array.prototype.forEach.call(stepper.querySelectorAll('.sb-step'), function (el) {
 	  var n = +el.getAttribute('data-step');
 	  el.classList.toggle('active', n === step);
 	  el.classList.toggle('done', n < step);
 	});
 	backBtn.style.visibility = step === 1 ? 'hidden' : 'visible';
-	nextBtn.style.display = step === 4 ? 'none' : '';
-	if (step === 4) { setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 60); }
+	nextBtn.style.display = step === LAST ? 'none' : '';
 	var head = document.querySelector('.sb-post-head'); if (head) head.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
-  nextBtn.addEventListener('click', function () { if (current < 4) show(current + 1); });
+  nextBtn.addEventListener('click', function () { if (current < LAST) show(current + 1); });
   backBtn.addEventListener('click', function () { if (current > 1) show(current - 1); });
   Array.prototype.forEach.call(stepper.querySelectorAll('.sb-step'), function (el) {
 	el.addEventListener('click', function () { show(+el.getAttribute('data-step')); });

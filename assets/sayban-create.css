@@ -115,7 +115,7 @@
 /* remember-me + Login on one clean row */
 .sb-form-card #rem-login-form .field.footer-form{display:flex; align-items:center; justify-content:space-between; gap:16px;
   margin:20px 0 0 !important; padding:18px 0 0 !important; border:none !important; border-top:1px solid var(--line) !important; text-align:left !important; float:none !important;}
-.sb-form-card #rem-login-form .footer-form .remember{order:1; margin:0; float:none;}
+.sb-form-card #rem-login-form .footer-form .remember{order:1; margin:0; float:none; position:static !important; top:auto !important;}
 .sb-form-card #rem-login-form .footer-form .button-form{order:2; margin:0 !important; float:none !important; min-height:46px; padding:12px 30px !important;}
 .sb-post-page .rem-login-heading,.sb-post-page .agent-login h3{font-family:var(--serif); font-weight:400; color:var(--ink);}
 

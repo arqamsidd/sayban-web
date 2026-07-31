@@ -69,7 +69,7 @@ $count = count( $items );
 $curr    = function_exists( 'rem_get_currency_symbol' ) ? rem_get_currency_symbol() : 'PKR ';
 $noun         = $f_purpose === 'plot' ? 'Plots' : 'Houses';
 $purpose_word = $f_purpose === 'rent' ? 'for Rent' : ( $f_purpose === 'buy' ? 'for Sale' : '' );
-$heading      = trim( $noun . ' ' . $purpose_word . ( $f_city ? ' in ' . ucwords( $f_city ) : ' in Lahore' ) );
+$heading      = preg_replace( '/\s+/', ' ', trim( $noun . ' ' . $purpose_word . ' in ' . ( $f_city ? ucwords( $f_city ) : 'Lahore' ) ) );
 
 /* helper to build a filter URL preserving other params */
 function sb_url( $overrides = array() ) {

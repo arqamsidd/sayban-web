@@ -76,13 +76,15 @@ $logged = is_user_logged_in();
   }
 
   var LAST = 3;
+  var titles = { 1: 'Your Details', 2: 'Contact &amp; Social', 3: 'About You' };
   var srcUl = lis[0].parentNode;
   var host = srcUl.parentNode;
   var panels = {}, uls = {};
   for (var s = 1; s <= LAST; s++) {
 	var p = document.createElement('div'); p.className = 'sb-wz-panel'; p.setAttribute('data-step', s);
-	var u = document.createElement('ul'); u.className = srcUl.className || 'profile create';
-	p.appendChild(u); panels[s] = p; uls[s] = u;
+	var h = document.createElement('h3'); h.className = 'sb-wz-h'; h.innerHTML = titles[s];
+	var u = document.createElement('ul'); u.className = 'sb-wz-ul ' + (srcUl.className || 'profile create');
+	p.appendChild(h); p.appendChild(u); panels[s] = p; uls[s] = u;
   }
   lis.forEach(function (li) { uls[ stepForLi(li) ].appendChild(li); });
 
@@ -95,7 +97,14 @@ $logged = is_user_logged_in();
 	panels[LAST].appendChild(submit);
   }
   for (var s2 = 1; s2 <= LAST; s2++) { host.appendChild(panels[s2]); }
-  if (srcUl && !srcUl.querySelector('li')) { srcUl.style.display = 'none'; }
+
+  // hide REM's original scaffolding (empty section headers, the now-empty
+  // source lists, the leftover map, tab-wrap markers) — our panels replace them.
+  var hide = function (sel) { Array.prototype.forEach.call(form.querySelectorAll(sel), function (el) { el.style.display = 'none'; }); };
+  hide('.section-title');
+  hide('[class*="tab-wrap-"]');
+  Array.prototype.forEach.call(form.querySelectorAll('ul'), function (u) { if (!u.closest('.sb-wz-panel')) { u.style.display = 'none'; } });
+  Array.prototype.forEach.call(form.querySelectorAll('br'), function (el) { el.style.display = 'none'; });
 
   var nav = document.createElement('div'); nav.className = 'sb-wz-nav';
   nav.innerHTML = '<button type="button" class="sb-wz-back">&#8592; Back</button><button type="button" class="sb-wz-next">Continue &#8594;</button>';

@@ -72,6 +72,9 @@
 
 /* wizard */
 .sb-wz-panel{animation:sbfade .2s ease;}
+.sb-wz-h{font-family:var(--serif); font-size:20px; font-weight:400; color:var(--ink); margin:0 0 18px;
+  padding-bottom:8px; border-bottom:2px solid var(--gold);}
+.sb-form-card ul.sb-wz-ul{list-style:none; margin:0; padding:0;}
 @keyframes sbfade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
 .sb-wz-review{padding:8px 0 4px;}
 .sb-wz-review .title{font-family:var(--serif); font-size:22px; margin:0 0 8px;}

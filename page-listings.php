@@ -9,17 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 
-/* ---------- price text <-> number helpers (REM stores price as text) ---------- */
-function sb_price_to_num( $txt ) {
-	$txt = strtolower( trim( (string) $txt ) );
-	if ( $txt === '' ) { return 0; }
-	if ( ! preg_match( '/([0-9]+(?:\.[0-9]+)?)/', $txt, $m ) ) { return 0; }
-	$n = (float) $m[1];
-	if ( strpos( $txt, 'crore' ) !== false || strpos( $txt, 'cr' ) !== false ) { return (int) round( $n * 10000000 ); }
-	if ( strpos( $txt, 'lakh' ) !== false || strpos( $txt, 'lac' ) !== false ) { return (int) round( $n * 100000 ); }
-	if ( strpos( $txt, 'thousand' ) !== false || strpos( $txt, 'k' ) !== false ) { return (int) round( $n * 1000 ); }
-	return (int) round( $n );
-}
+/* price/card helpers live in inc/sayban-parts.php (shared with [sayban_featured]) */
 
 /* ---------- read filters from the query string ---------- */
 $f_purpose = isset( $_GET['purpose'] ) ? sanitize_key( $_GET['purpose'] ) : '';   // '', buy, rent
@@ -50,7 +40,7 @@ $items = array();
 while ( $q->have_posts() ) {
 	$q->the_post();
 	$pid  = get_the_ID();
-	$pnum = sb_price_to_num( get_post_meta( $pid, 'rem_property_price', true ) );
+	$pnum = sayban_price_to_num( get_post_meta( $pid, 'rem_property_price', true ) );
 	if ( $f_min && $pnum && $pnum < $f_min ) { continue; }
 	if ( $f_max && $pnum && $pnum > $f_max ) { continue; }
 	$cats = wp_get_post_terms( $pid, 'rem_property_cat', array( 'fields' => 'slugs' ) );
@@ -199,29 +189,7 @@ $price_opts = array( 5000000 => '50 Lakh', 10000000 => '1 Crore', 15000000 => '1
 		  <div class="sb-noresults">No properties match these filters. <a href="<?php echo esc_url( get_permalink() ); ?>">Reset filters</a>.</div>
 		<?php else : ?>
 		<div class="sb-cards sb-cards-<?php echo esc_attr( $view ); ?>">
-		  <?php foreach ( $items as $it ) :
-			  $is_rent = $it['cat'] === 'rent';
-			  $loc = trim( implode( ' · ', array_filter( array( $it['addr'] ? ucwords( $it['addr'] ) : '', $it['city'] ? ucwords( $it['city'] ) : '' ) ) ) ); ?>
-			<article class="sb-card">
-			  <a class="sb-card-img" href="<?php echo esc_url( $it['link'] ); ?>" <?php if ( $it['img'] ) echo 'style="background-image:url(\'' . esc_url( $it['img'] ) . '\')"'; ?>>
-				<span class="sb-card-badges">
-				  <span class="sb-b <?php echo $is_rent ? 'sb-b-rent' : 'sb-b-sale'; ?>"><?php echo $is_rent ? 'For Rent' : 'For Sale'; ?></span>
-				  <?php if ( $it['feat'] ) : ?><span class="sb-b sb-b-feat">Featured</span><?php endif; ?>
-				</span>
-				<button type="button" class="sb-card-fav" aria-label="Save">&#9825;</button>
-			  </a>
-			  <a class="sb-card-body" href="<?php echo esc_url( $it['link'] ); ?>">
-				<div class="sb-card-price"><span class="sb-cur"><?php echo esc_html( $curr ); ?></span><?php echo esc_html( $it['price'] ); ?><?php echo $is_rent ? '<span class="sb-per">/mo</span>' : ''; ?></div>
-				<div class="sb-card-title"><?php echo esc_html( $it['title'] ); ?></div>
-				<?php if ( $loc ) : ?><div class="sb-card-loc"><?php echo esc_html( $loc ); ?></div><?php endif; ?>
-				<div class="sb-card-specs">
-				  <?php if ( '' !== (string) $it['beds'] ) : ?><span><?php echo esc_html( $it['beds'] ); ?> Beds</span><?php endif; ?>
-				  <?php if ( '' !== (string) $it['baths'] ) : ?><span><?php echo esc_html( $it['baths'] ); ?> Baths</span><?php endif; ?>
-				  <?php if ( $it['area'] ) : ?><span><?php echo esc_html( $it['area'] ); ?></span><?php endif; ?>
-				</div>
-			  </a>
-			</article>
-		  <?php endforeach; ?>
+		  <?php foreach ( $items as $it ) { echo sayban_card_html( $it ); } ?>
 		</div>
 		<?php endif; ?>
 	  </div>

@@ -11,6 +11,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'HELLO_ELEMENTOR_CHILD_VERSION', '2.0.0' );
 
+// Shared parts: design card + [sayban_finder] / [sayban_featured] shortcodes.
+require_once __DIR__ . '/inc/sayban-parts.php';
+
+/** True when the current page should load the Sayban home CSS (finder/featured). */
+function sayban_needs_home_css() {
+	if ( is_front_page() || is_home() ) { return true; }
+	if ( is_singular() ) {
+		$post = get_post();
+		if ( $post && ( has_shortcode( $post->post_content, 'sayban_finder' ) || has_shortcode( $post->post_content, 'sayban_featured' ) ) ) {
+			return true;
+		}
+	}
+	return false;
+}
+
 /**
  * Load child theme base stylesheet.
  */
@@ -45,7 +60,8 @@ add_filter( 'template_include', function ( $template ) {
 add_action( 'wp_enqueue_scripts', function () {
 	$is_single   = is_singular( 'rem_property' );
 	$is_listings = is_page( 'properties' );
-	if ( ! $is_single && ! $is_listings ) {
+	$is_home     = sayban_needs_home_css();
+	if ( ! $is_single && ! $is_listings && ! $is_home ) {
 		return;
 	}
 
@@ -73,5 +89,8 @@ add_action( 'wp_enqueue_scripts', function () {
 	}
 	if ( $is_listings ) {
 		$enqueue( 'sayban-listings', 'sayban-listings.css' );
+	}
+	if ( $is_home ) {
+		$enqueue( 'sayban-home', 'sayban-home.css' );
 	}
 }, 30 );

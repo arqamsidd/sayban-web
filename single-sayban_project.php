@@ -61,8 +61,12 @@ while ( have_posts() ) : the_post();
 			<?php if ( $price ) : ?><span class="sbp-chip sbp-chip-price">From <?php echo esc_html( $price ); ?></span><?php endif; ?>
 		  </div>
 		  <div class="sbp-hero-cta">
-			<a class="sbp-btn sbp-btn-gold" href="#payment">View Payment Plan</a>
-			<a class="sbp-btn sbp-btn-glass" href="#inquire">Request a Call Back</a>
+			<?php if ( $plans ) : ?>
+			  <a class="sbp-btn sbp-btn-gold" href="#payment">View Payment Plan</a>
+			  <a class="sbp-btn sbp-btn-glass" href="#inquire">Request a Call Back</a>
+			<?php else : ?>
+			  <a class="sbp-btn sbp-btn-gold" href="#inquire">Register Interest</a>
+			<?php endif; ?>
 		  </div>
 		</div>
 	  </section>

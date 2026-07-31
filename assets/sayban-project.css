@@ -67,10 +67,13 @@
 .sbp-prose p{margin:0 0 16px;}
 
 /* facts strip (overlaps hero) */
-.sbp-facts{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);
+/* border-based dividers (not gap-fill) so empty cells stay white when a project has < 6 facts */
+.sbp-facts{display:grid; grid-template-columns:repeat(3,1fr); background:var(--surface);
   border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 14px 34px rgba(31,28,20,.10);
   margin-top:-40px; position:relative; z-index:2;}
-.sbp-fact{background:var(--surface); padding:18px 22px;}
+.sbp-fact{background:var(--surface); padding:18px 22px; border-top:1px solid var(--line); border-left:1px solid var(--line);}
+.sbp-fact:nth-child(-n+3){border-top:none;}
+.sbp-fact:nth-child(3n+1){border-left:none;}
 .sbp-fact span{display:block; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--ink3); margin-bottom:6px;}
 .sbp-fact b{font-size:15.5px; color:var(--ink); font-weight:700;}
 

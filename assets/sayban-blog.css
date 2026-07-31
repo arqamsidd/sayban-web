@@ -95,6 +95,11 @@ a.sb-chip:hover{background:var(--teal); color:#fff;}
 /* grid */
 .sb-blog-grid{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:26px;}
 
+/* embedded inside another page (e.g. the homepage "Learn before you buy"
+   section) — keep the tokens + card styles, but drop the page paper background
+   so it inherits the host section's surface. */
+.sb-blog--embed{background:transparent;}
+
 /* pagination */
 .sb-blog-pagination{margin:44px 0 8px; display:flex; justify-content:center;}
 .sb-blog-pagination ul{list-style:none; display:flex; gap:8px; padding:0; margin:0;}

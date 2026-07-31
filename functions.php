@@ -93,6 +93,12 @@ add_action( 'wp_enqueue_scripts', function () {
 				|| ( is_string( $eld ) && strpos( $eld, '[sayban_projects' ) !== false ) ) {
 				$is_project = true;
 			}
+			// Blog cards ([sayban_blog]) embedded on the homepage (or any page).
+			if ( ! $is_blog
+				&& ( has_shortcode( $pp->post_content, 'sayban_blog' )
+					|| ( is_string( $eld ) && strpos( $eld, '[sayban_blog' ) !== false ) ) ) {
+				$is_blog = true;
+			}
 		}
 	}
 	if ( ! $is_single && ! $is_listings && ! $is_create && ! $is_home && ! $is_blog && ! $is_dash && ! $is_project ) {

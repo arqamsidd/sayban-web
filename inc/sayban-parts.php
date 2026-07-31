@@ -235,3 +235,31 @@ function sayban_cities_shortcode( $atts ) {
 	return ob_get_clean();
 }
 add_shortcode( 'sayban_cities', 'sayban_cities_shortcode' );
+
+/* =========================================================================
+   [sayban_blog count="3" cat=""]  — latest posts as the editorial blog cards
+   (the exact same card as the /blog/ index, via sayban_blog_card_html()).
+   Used to replace Elementor's posts widget in the homepage "Learn before you
+   buy" section so its cards match the Blog page. `.sb-blog--embed` drops the
+   page background/padding so it sits cleanly inside a host section.
+   ========================================================================= */
+function sayban_blog_shortcode( $atts ) {
+	$a = shortcode_atts( array( 'count' => 3, 'cat' => '' ), $atts, 'sayban_blog' );
+	$args = array(
+		'post_type'           => 'post',
+		'posts_per_page'      => (int) $a['count'],
+		'post_status'         => 'publish',
+		'ignore_sticky_posts' => true,
+		'no_found_rows'       => true,
+	);
+	if ( '' !== $a['cat'] ) { $args['category_name'] = sanitize_title( $a['cat'] ); }
+	$q = new WP_Query( $args );
+	if ( ! $q->have_posts() ) { return ''; }
+	ob_start();
+	echo '<div class="sb-blog sb-blog--embed"><div class="sb-blog-grid">';
+	while ( $q->have_posts() ) { $q->the_post(); echo sayban_blog_card_html( get_the_ID(), 'grid' ); }
+	wp_reset_postdata();
+	echo '</div></div>';
+	return ob_get_clean();
+}
+add_shortcode( 'sayban_blog', 'sayban_blog_shortcode' );

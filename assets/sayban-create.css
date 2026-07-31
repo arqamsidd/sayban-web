@@ -78,10 +78,10 @@
 .sb-wz-review p{color:var(--ink2); font-size:14.5px; max-width:520px;}
 .sb-wz-nav{display:flex; justify-content:space-between; align-items:center; margin-top:26px; padding-top:22px; border-top:1px solid var(--line);}
 .sb-wz-back,.sb-wz-next{font-family:var(--sans); font-weight:700; font-size:14.5px; border-radius:9px; cursor:pointer; border:1px solid transparent; padding:12px 26px;}
-.sb-wz-back{background:transparent; border-color:var(--line2); color:var(--ink);}
-.sb-wz-back:hover{border-color:var(--gold); color:var(--gold-deep);}
-.sb-wz-next{background:var(--gold); color:#fff; border-color:var(--gold);}
-.sb-wz-next:hover{background:var(--gold-deep); border-color:var(--gold-deep);}
+.sb-wz-back{background:transparent !important; border-color:var(--line2); color:var(--ink) !important;}
+.sb-wz-back:hover{border-color:var(--gold); color:var(--gold-deep) !important;}
+.sb-wz-next{background:var(--gold) !important; color:#fff !important; border-color:var(--gold) !important;}
+.sb-wz-next:hover{background:var(--gold-deep) !important; border-color:var(--gold-deep) !important; color:#fff !important;}
 /* the real REM submit button (last step) → gold */
 .sb-form-card #form-submit{background:var(--gold) !important; color:#fff !important; border:1px solid var(--gold) !important;
   border-radius:9px !important; font-family:var(--sans); font-weight:800; font-size:15px; padding:14px 34px !important;

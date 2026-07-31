@@ -30,10 +30,10 @@
 .sb-btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:var(--sans);
   font-weight:700; font-size:14px; padding:10px 20px; border-radius:8px; border:1px solid transparent; cursor:pointer;
   line-height:1; transition:background-color .15s,border-color .15s,color .15s,filter .15s;}
-.sb-btn-gold{background:var(--gold); color:#fff; border-color:var(--gold);}
-.sb-btn-gold:hover{background:var(--gold-deep); border-color:var(--gold-deep);}
-.sb-btn-teal{background:var(--teal); color:#fff; border-color:var(--teal); padding:8px 18px; font-size:13px;}
-.sb-btn-teal:hover{background:var(--teal-deep); border-color:var(--teal-deep);}
+.sb-btn-gold{background:var(--gold) !important; color:#fff !important; border-color:var(--gold);}
+.sb-btn-gold:hover{background:var(--gold-deep) !important; border-color:var(--gold-deep); color:#fff !important;}
+.sb-btn-teal{background:var(--teal) !important; color:#fff !important; border-color:var(--teal); padding:8px 18px; font-size:13px;}
+.sb-btn-teal:hover{background:var(--teal-deep) !important; border-color:var(--teal-deep); color:#fff !important;}
 .sb-btn-ghost{background:transparent; border-color:var(--line2); color:var(--ink);}
 .sb-btn-ghost:hover{border-color:var(--gold); color:var(--gold-deep);}
 

@@ -39,10 +39,10 @@
 .sf-form select{-webkit-appearance:none; appearance:none; padding-right:34px; cursor:pointer;}
 .sf-input::placeholder{color:var(--ink3); font-weight:500;}
 .sf-form select:focus,.sf-input:focus{border-color:var(--gold); box-shadow:0 0 0 3px rgba(176,140,70,.15); outline:none;}
-.sf-search{height:48px; padding:0 34px; background:var(--gold); color:#fff; border:1px solid var(--gold);
+.sf-search{height:48px; padding:0 34px; background:var(--gold) !important; color:#fff !important; border:1px solid var(--gold);
   border-radius:9px; font-family:var(--sans); font-weight:800; font-size:14.5px; letter-spacing:.02em; cursor:pointer;
   text-transform:uppercase; transition:background-color .15s;}
-.sf-search:hover{background:var(--gold-deep); border-color:var(--gold-deep);}
+.sf-search:hover{background:var(--gold-deep) !important; border-color:var(--gold-deep); color:#fff !important;}
 
 .sf-trust{display:flex; justify-content:center; gap:34px; flex-wrap:wrap; margin-top:18px;
   font-size:14px; font-weight:600; color:#EAE4D6;}

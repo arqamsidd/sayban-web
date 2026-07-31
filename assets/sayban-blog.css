@@ -118,7 +118,8 @@ a.sb-chip:hover{background:var(--teal); color:#fff;}
 /* ============================ ARTICLE ============================ */
 /* ================================================================= */
 .sb-article-head{background:var(--surface); border-bottom:1px solid var(--line);}
-.sb-article-head-inner{max-width:760px; margin:0 auto; padding:28px 24px 34px;}
+/* header content matches the hero image width below it (1000px content = 1048 − 2×24 padding) */
+.sb-article-head-inner{max-width:1048px; margin:0 auto; padding:28px 24px 34px;}
 .sb-article-head .sb-breadcrumb{margin-bottom:26px;}
 .sb-article-meta{display:flex; align-items:center; gap:10px; font-size:13px; color:var(--ink3); font-weight:600; margin-bottom:16px;}
 .sb-article-title{font-family:var(--serif); font-size:42px; line-height:1.14; letter-spacing:.005em; color:var(--ink);}
@@ -175,7 +176,7 @@ a.sb-chip:hover{background:var(--teal); color:#fff;}
 .sb-article-author p{font-size:14.5px; color:var(--ink2); line-height:1.6;}
 
 /* related */
-.sb-article-related{margin-top:20px; padding:52px 0 8px; border-top:1px solid var(--line); background:var(--bg);}
+.sb-article-related{margin-top:20px; padding:52px 0 72px; border-top:1px solid var(--line); background:var(--bg);}
 .sb-related-inner{max-width:1200px; margin:0 auto; padding:0 40px;}
 .sb-related-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:26px;}
 .sb-related-title{font-family:var(--serif); font-size:30px; color:var(--ink);}

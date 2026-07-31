@@ -34,8 +34,10 @@ if ( $f_cat ) {
 }
 $q = new WP_Query( $args );
 
-/* On the unfiltered first page, the newest post becomes the large lead card. */
-$use_lead = ( ! $f_cat && $paged === 1 && $q->post_count > 1 );
+/* On the unfiltered first page, the newest post becomes the large lead card —
+   but only when enough posts remain to fill a full grid row below it (avoids a
+   lopsided single-lead + 2-card layout). */
+$use_lead = ( ! $f_cat && $paged === 1 && $q->post_count >= 4 );
 
 $cat_url = function ( $slug ) use ( $base_url ) {
 	return $slug ? add_query_arg( 'cat', $slug, $base_url ) : $base_url;
@@ -85,20 +87,16 @@ $active_cat_obj = $f_cat ? get_category_by_slug( $f_cat ) : null;
 	<?php else : ?>
 
 	  <?php
-	  $i = 0;
-	  while ( $q->have_posts() ) : $q->the_post();
-		$is_lead = ( $use_lead && $i === 0 );
-		if ( $is_lead ) {
-			echo '<div class="sb-blog-lead-wrap">' . sayban_blog_card_html( get_post(), 'lead' ) . '</div>';
-			echo '<div class="sb-blog-grid">';
-		}
-		if ( ! $is_lead ) {
-			if ( ( $use_lead && $i === 1 ) || ( ! $use_lead && $i === 0 ) ) { echo '<div class="sb-blog-grid">'; }
-			echo sayban_blog_card_html( get_post(), 'grid' );
-		}
-		$i++;
-	  endwhile;
-	  echo '</div>'; // .sb-blog-grid
+	  $posts = $q->posts;
+	  if ( $use_lead && $posts ) {
+		  $lead = array_shift( $posts );
+		  echo '<div class="sb-blog-lead-wrap">' . sayban_blog_card_html( $lead, 'lead' ) . '</div>';
+	  }
+	  if ( $posts ) {
+		  echo '<div class="sb-blog-grid">';
+		  foreach ( $posts as $p ) { echo sayban_blog_card_html( $p, 'grid' ); }
+		  echo '</div>';
+	  }
 	  ?>
 
 	  <?php

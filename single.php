@@ -14,9 +14,7 @@ while ( have_posts() ) : the_post();
 	$rt    = sayban_read_time( $pid );
 	$date  = get_the_date( 'F j, Y', $pid );
 	$img   = get_the_post_thumbnail_url( $pid, 'full' );
-	$author_id   = (int) get_the_author_meta( 'ID' );
-	$author_name = get_the_author_meta( 'display_name', $author_id );
-	$author_bio  = get_the_author_meta( 'description', $author_id );
+	$author_name = 'Sayban Builders'; // brand byline (company blog)
 	$blog_url    = get_permalink( get_page_by_path( 'blog' ) );
 	if ( ! $blog_url ) { $blog_url = home_url( '/blog/' ); }
 	$share_url   = rawurlencode( get_permalink( $pid ) );
@@ -71,16 +69,6 @@ while ( have_posts() ) : the_post();
 		  <a class="sb-share-btn" target="_blank" rel="noopener nofollow" href="https://twitter.com/intent/tweet?url=<?php echo $share_url; ?>&text=<?php echo $share_title; ?>" aria-label="Share on X">X</a>
 		</div>
 
-		<?php if ( $author_name ) : ?>
-		<div class="sb-article-author">
-		  <span class="sb-avatar sb-avatar-lg"><?php echo esc_html( strtoupper( mb_substr( $author_name, 0, 1 ) ) ); ?></span>
-		  <div>
-			<span class="sb-kicker">Written by</span>
-			<h4><?php echo esc_html( $author_name ); ?></h4>
-			<?php if ( $author_bio ) : ?><p><?php echo esc_html( $author_bio ); ?></p><?php else : ?><p>The Sayban editorial team — practical guides for buyers, renters and investors across Pakistan.</p><?php endif; ?>
-		  </div>
-		</div>
-		<?php endif; ?>
 	  </div>
 
 	  <?php

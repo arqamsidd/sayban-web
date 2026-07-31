@@ -29,11 +29,12 @@ add_action( 'wp_enqueue_scripts', 'hello_elementor_child_scripts_styles', 20 );
  * REM hooks template_include at priority 99; we run at 100 so ours wins.
  */
 add_filter( 'template_include', function ( $template ) {
-	if ( is_singular( 'rem_property' ) ) {
-		$custom = get_stylesheet_directory() . '/single-rem_property.php';
-		if ( file_exists( $custom ) ) {
-			return $custom;
-		}
+	$dir = get_stylesheet_directory();
+	if ( is_singular( 'rem_property' ) && file_exists( $dir . '/single-rem_property.php' ) ) {
+		return $dir . '/single-rem_property.php';
+	}
+	if ( is_page( 'properties' ) && file_exists( $dir . '/page-listings.php' ) ) {
+		return $dir . '/page-listings.php';
 	}
 	return $template;
 }, 100 );
@@ -42,20 +43,35 @@ add_filter( 'template_include', function ( $template ) {
  * Sayban: fonts + single-property stylesheet, only on single listings.
  */
 add_action( 'wp_enqueue_scripts', function () {
-	if ( ! is_singular( 'rem_property' ) ) {
+	$is_single   = is_singular( 'rem_property' );
+	$is_listings = is_page( 'properties' );
+	if ( ! $is_single && ! $is_listings ) {
 		return;
 	}
+
 	wp_enqueue_style(
 		'sayban-fonts',
 		'https://fonts.googleapis.com/css2?family=Marcellus&family=Manrope:wght@400;500;600;700;800&display=swap',
 		array(),
 		null
 	);
-	$css = get_stylesheet_directory() . '/assets/sayban-single.css';
-	wp_enqueue_style(
-		'sayban-single',
-		get_stylesheet_directory_uri() . '/assets/sayban-single.css',
-		array(),
-		file_exists( $css ) ? (string) filemtime( $css ) : HELLO_ELEMENTOR_CHILD_VERSION
-	);
+
+	$dir = get_stylesheet_directory();
+	$uri = get_stylesheet_directory_uri();
+	$enqueue = function ( $handle, $file ) use ( $dir, $uri ) {
+		$path = $dir . '/assets/' . $file;
+		wp_enqueue_style(
+			$handle,
+			$uri . '/assets/' . $file,
+			array(),
+			file_exists( $path ) ? (string) filemtime( $path ) : HELLO_ELEMENTOR_CHILD_VERSION
+		);
+	};
+
+	if ( $is_single ) {
+		$enqueue( 'sayban-single', 'sayban-single.css' );
+	}
+	if ( $is_listings ) {
+		$enqueue( 'sayban-listings', 'sayban-listings.css' );
+	}
 }, 30 );

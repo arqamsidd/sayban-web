@@ -149,7 +149,7 @@ function sayban_finder_shortcode( $atts ) {
 		<div class="sf-fields">
 		  <div class="sf-field">
 			<label>City</label>
-			<div class="sf-select"><select name="city"><option value="">All Cities</option><option value="lahore">Lahore</option></select></div>
+			<div class="sf-select"><select name="city"><option value="">All Cities</option><option value="karachi">Karachi</option><option value="lahore">Lahore</option></select></div>
 		  </div>
 		  <div class="sf-field">
 			<label>Area / Society</label>

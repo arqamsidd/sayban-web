@@ -69,7 +69,8 @@ $count = count( $items );
 $curr    = function_exists( 'rem_get_currency_symbol' ) ? rem_get_currency_symbol() : 'PKR ';
 $noun         = $f_purpose === 'plot' ? 'Plots' : 'Houses';
 $purpose_word = $f_purpose === 'rent' ? 'for Rent' : ( $f_purpose === 'buy' ? 'for Sale' : '' );
-$heading      = preg_replace( '/\s+/', ' ', trim( $noun . ' ' . $purpose_word . ' in ' . ( $f_city ? ucwords( $f_city ) : 'Lahore' ) ) );
+$city_label   = $f_city ? ucwords( $f_city ) : 'Karachi';   // label used in heading, breadcrumb + map strip
+$heading      = preg_replace( '/\s+/', ' ', trim( $noun . ' ' . $purpose_word . ' in ' . $city_label ) );
 
 /* helper to build a filter URL preserving other params */
 function sb_url( $overrides = array() ) {
@@ -88,11 +89,11 @@ $price_opts = array( 5000000 => '50 Lakh', 10000000 => '1 Crore', 15000000 => '1
 
 	<nav class="sb-breadcrumb">
 	  <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a><span>/</span>
-	  <span>Lahore</span><span>/</span><b><?php echo esc_html( $heading ); ?></b>
+	  <span><?php echo esc_html( $city_label ); ?></span><span>/</span><b><?php echo esc_html( $heading ); ?></b>
 	</nav>
 
 	<div class="sb-map-strip">
-	  <span class="sb-map-strip-txt">◈&nbsp;&nbsp;Map view — see these <?php echo (int) $count; ?> result<?php echo $count === 1 ? '' : 's'; ?> on a map of Lahore</span>
+	  <span class="sb-map-strip-txt">◈&nbsp;&nbsp;Map view — see these <?php echo (int) $count; ?> result<?php echo $count === 1 ? '' : 's'; ?> on a map of <?php echo esc_html( $city_label ); ?></span>
 	  <button type="button" class="sb-btn sb-btn-teal" id="sb-map-toggle">Show Map</button>
 	</div>
 	<div class="sb-map-panel" id="sb-map-panel" hidden>
@@ -117,6 +118,7 @@ $price_opts = array( 5000000 => '50 Lakh', 10000000 => '1 Crore', 15000000 => '1
 		  <div class="sb-select-wrap">
 			<select name="city" onchange="this.form.submit()">
 			  <option value="">All Cities</option>
+			  <option value="karachi" <?php selected( $f_city, 'karachi' ); ?>>Karachi</option>
 			  <option value="lahore" <?php selected( $f_city, 'lahore' ); ?>>Lahore</option>
 			</select>
 		  </div>

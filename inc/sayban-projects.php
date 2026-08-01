@@ -113,6 +113,20 @@ function sayban_pf( $post_id, $key, $default = '' ) {
 	return $v === '' ? $default : $v;
 }
 
+/**
+ * Build a `tel:` value in international (+92) form from a Pakistani number.
+ * e.g. "03310100101" → "+923310100101"; "0304 111 729226" → "+92304111729226".
+ * Already-international inputs (+92…, 92…, 0092…) are preserved.
+ */
+function sayban_tel_href( $phone ) {
+	$d = preg_replace( '/\D/', '', (string) $phone );
+	if ( $d === '' ) { return ''; }
+	if ( strpos( $d, '0092' ) === 0 )      { $d = substr( $d, 2 ); }        // 0092… → 92…
+	elseif ( strpos( $d, '0' ) === 0 )      { $d = '92' . substr( $d, 1 ); } // local 0xxx → 92xxx
+	elseif ( strpos( $d, '92' ) !== 0 )     { $d = '92' . $d; }              // bare → 92xxx
+	return '+' . $d;
+}
+
 /** Decode the payment-plans JSON into an array of plans. */
 function sayban_project_plans( $post_id ) {
 	$raw = get_post_meta( $post_id, 'sayban_pay_plans', true );

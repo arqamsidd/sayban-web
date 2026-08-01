@@ -124,7 +124,7 @@ while ( have_posts() ) : the_post();
 			  <span class="sbp-eyebrow">Payment Plans</span>
 			  <div class="sbp-pay-head">
 				<h2 class="sbp-h2">Easy installment plans</h2>
-				<?php if ( $brochure ) : ?><a class="sbp-btn sbp-btn-ghostgold sbp-btn-sm" href="<?php echo esc_url( $brochure ); ?>" target="_blank" rel="noopener">&#8681; Download Payment Plan (PDF)</a><?php endif; ?>
+				<?php if ( $brochure ) : ?><a class="sbp-btn sbp-btn-ghostgold sbp-btn-sm" href="<?php echo esc_url( $brochure ); ?>" target="_blank" rel="noopener">&#8681; Download Brochure (PDF)</a><?php endif; ?>
 			  </div>
 
 			  <?php if ( count( $plans ) > 1 ) : ?>
@@ -210,7 +210,7 @@ while ( have_posts() ) : the_post();
 
 			  <div class="sbp-rail-contact">
 				<?php if ( $wa ) : ?><a class="sbp-btn sbp-btn-wa sbp-btn-block" href="https://wa.me/<?php echo esc_attr( $wa ); ?>?text=<?php echo rawurlencode( "Hi, I'm interested in " . get_the_title() ); ?>" target="_blank" rel="noopener">&#9993; WhatsApp Us</a><?php endif; ?>
-				<?php if ( $phone ) : ?><a class="sbp-btn sbp-btn-charcoal sbp-btn-block" href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $phone ) ); ?>">&#9742; Call <?php echo esc_html( $phone ); ?></a><?php endif; ?>
+				<?php if ( $phone ) : ?><a class="sbp-btn sbp-btn-charcoal sbp-btn-block" href="tel:<?php echo esc_attr( sayban_tel_href( $phone ) ); ?>">&#9742; Call <?php echo esc_html( $phone ); ?></a><?php endif; ?>
 			  </div>
 			  <div class="sbp-rail-trust">&#10003; Verified documentation &nbsp;·&nbsp; &#10003; Direct from developer</div>
 			</div>
